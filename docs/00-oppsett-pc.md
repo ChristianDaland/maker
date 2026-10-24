@@ -73,7 +73,7 @@ Installert 2026-10-24 med Ubuntus pakker, bruker lagt i `docker`-gruppen. Testet
 | PlatformIO IDE | `platformio.platformio-ide` | Utvikling og flashing av ESP32 og andre mikrokontrollere | [x] 3.3.4 |
 | Python | `ms-python.python` | Python-utvikling lokalt og på Pi | [x] 2026.10.0 |
 | Remote - SSH | `ms-vscode-remote.remote-ssh` | Redigere og kjøre kode direkte på Raspberry Pi | [x] 0.128.0 |
-| Markdown All in One | `yzhang.markdown-all-in-one` | Skrive og forhåndsvise dokumentasjonen (valgfri) | [ ] |
+| Markdown All in One | `yzhang.markdown-all-in-one` | Skrive og forhåndsvise dokumentasjonen (valgfri) | [x] 3.6.3 |
 
 Installer fra terminalen med `code --install-extension <ID>`. PlatformIO IDE trenger `python3-venv` for å lage sitt eget miljø i `~/.platformio`.
 
@@ -86,6 +86,9 @@ ln -s ~/.platformio/penv/bin/platformio ~/.local/bin/platformio
 
 - [x] PlatformIO Core 6.2.0 i `~/.platformio`, `pio` i PATH (2026-10-24)
 - [x] Plattformen `espressif32` 8.0.0 med Arduino-rammeverket 3.3.12 og kompilatorer for ESP32/S2/S3 (Xtensa) og C3/C6 (RISC-V). Testbygg OK for `esp32dev`, `esp32-s3-devkitc-1` og `esp32-c3-devkitm-1` (2026-10-24). `~/.platformio` er ca. 6 GB.
+- [x] Plattformen `atmelavr` 5.3.0 (Arduino Uno/Nano/Mega) – testbygg OK for `uno` og `nanoatmega328` (2026-10-24)
+- [x] Plattformen `raspberrypi` 1.20.0 (Pico, offisiell, Arduino-Mbed-kjerne) – testbygg OK for `pico` (2026-10-24). Støtter ikke Wi-Fi på Pico W; til det trengs Earle Philhower-kjernen (ikke installert).
+- `~/.platformio` er totalt ca. 7 GB.
 
 ## Mikrokontrollere
 
@@ -137,3 +140,4 @@ Skriv her når noe er endret i oppsettet, med dato:
 - 2026-10-24: PlatformIO Core 6.2.0 satt opp av VS Code-utvidelsen. `pio` lenket inn i `~/.local/bin`. Logget inn på nytt, `dialout` er aktiv.
 - 2026-10-24: Lastet ned `espressif32` 8.0.0 med verktøykjeder. Testbygg for ESP32, ESP32-S3 og ESP32-C3 gikk feilfritt (4 min første gang).
 - 2026-10-24: Installert rpi-imager 1.8.5, Thonny 4.0.1, mosquitto-clients 2.0.18, Docker 29.1.3 + Compose 2.40.3, KiCad 7.0.11, Fritzing 1.0.1 (apt), Arduino IDE 2.3.10 (Flatpak) og mpremote 1.29.0 (pipx). Bruker lagt i `docker` (aktiv etter ny innlogging). Docker og MQTT testet OK.
+- 2026-10-24: Lagt til PlatformIO-plattformene `atmelavr` og `raspberrypi`, VS Code-utvidelsen Markdown All in One og MicroPython 1.29.0 for ESP32 i `verktoy/firmware/`.

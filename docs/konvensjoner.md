@@ -40,7 +40,8 @@ Standard filer som alltid skal finnes:
 | Hvert prosjekt | `README.md` | Hva prosjektet er, **hvordan det henger sammen** (deler, dataflyt, kobling), og hvordan det kjøres |
 
 - Ny plattform: lag mappen med både `README.md` og `verktoy.md` før første prosjekt.
-- En plattform kan ha en `_firmware-mal/` som `nytt-prosjekt.sh` kopierer til prosjektets `firmware/` (finnes for `esp32`).
+- En plattform kan ha maler for undermapper, `_<mappe>-mal/`, som `nytt-prosjekt.sh` kopierer til prosjektets `<mappe>/`. Finnes i dag: `esp32/_firmware-mal` (C++/PlatformIO), `raspberry-pi/_pi-mal` (Python). `kombinert/` og `pc-og-sky/` (`_kode-mal`) har symbolske lenker til disse.
+- `secrets.example.*` og `.env.example` i malene kopieres automatisk til `secrets.*` og `.env`, som er gitignored.
 - Prosjektets `README.md` lages fra malen av `nytt-prosjekt.sh`. Hold delen «Slik henger det sammen» oppdatert når noe endres.
 - Skriv ned hva som ikke fungerte også, ikke bare løsningen. Det sparer tid neste gang.
 - Kort logg over arbeid føres i `notater/logg.md`, nyeste øverst.

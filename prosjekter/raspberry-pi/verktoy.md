@@ -21,6 +21,9 @@ Hvilke verktøy vi bruker når vi jobber med Raspberry Pi, og til hva. Installas
 | `gpiozero` / `lgpio` | Styre GPIO: LED, knapper, motordrivere, servoer |
 | `picamera2` | Kameramodulen (installeres med apt, venv med `--system-site-packages`) |
 | `smbus2` / `spidev` | Sensorer over I2C og SPI |
-| `paho-mqtt` | Sende og ta imot MQTT-meldinger |
+| `paho-mqtt` + `maker.mqtt` | Sende og ta imot MQTT-meldinger (`maker.mqtt` i `bibliotek/python` følger verkstedets konvensjoner) |
+| `python-dotenv` | Lese innstillinger og passord fra `.env` |
 | `systemd` | Starte programmer automatisk ved oppstart (én `.service`-fil per program) |
 | Docker | Felles tjenester når Pi-en er sentral (se `infrastruktur/`) |
+
+Nye prosjekter får Python-malen [`_pi-mal/`](_pi-mal/) i `pi/`: MQTT-klient, `.env`, `requirements.txt` og et eksempel som sender CPU-temperatur. Kjøres med `python3 -m venv .venv && .venv/bin/pip install -r requirements.txt && .venv/bin/python main.py`.

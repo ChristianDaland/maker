@@ -51,15 +51,21 @@ fi
 
 cp -r "$mal" "$mappe"
 
-# Plattformen kan ha egen firmware-mal (f.eks. prosjekter/esp32/_firmware-mal)
-fw_mal="$rot/prosjekter/$plattform/_firmware-mal"
-if [[ -d "$fw_mal" ]]; then
-    cp -r "$fw_mal/." "$mappe/firmware/"
-    # Lag secrets.h fra eksempelet, så prosjektet kan bygges med en gang (gitignored)
-    for eks in "$mappe"/firmware/include/secrets.example.*; do
-        [[ -e "$eks" ]] && cp --update=none "$eks" "${eks/secrets.example./secrets.}"
-    done
-fi
+# Plattformen kan ha maler for undermapper: prosjekter/<plattform>/_<mappe>-mal
+# kopieres til <prosjekt>/<mappe>/ (f.eks. _firmware-mal -> firmware/, _pi-mal -> pi/)
+for undermal in "$rot/prosjekter/$plattform"/_*-mal; do
+    [[ -d "$undermal" ]] || continue
+    undermappe="$(basename "$undermal")"
+    undermappe="${undermappe#_}"
+    undermappe="${undermappe%-mal}"
+    mkdir -p "$mappe/$undermappe"
+    cp -rL "$undermal/." "$mappe/$undermappe/"
+done
+
+# Lag ekte hemmelighetsfiler fra eksemplene, så prosjektet kan kjøres med en gang (gitignored)
+while IFS= read -r -d '' eks; do
+    cp --update=none "$eks" "${eks/.example/}"
+done < <(find "$mappe" \( -name 'secrets.example.*' -o -name '.env.example' \) -print0)
 
 find "$mappe" -name .gitkeep -delete
 

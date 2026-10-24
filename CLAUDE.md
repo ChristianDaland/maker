@@ -59,6 +59,9 @@ Rammeverket ble først laget for Windows (`C:\Maker`, PowerShell, winget, WSL, O
 - `infrastruktur/`: Mosquitto, Telegraf, InfluxDB, Grafana og Node-RED kjører i Docker på PC-en. Passord i `infrastruktur/.env` (gitignored). Testet ende til ende.
 - `bibliotek/esp32/`: `maker_nett` (Wi-Fi/MQTT) og `cyd` (ESP32-2432S028R «Cheap Yellow Display»).
 - `prosjekter/esp32/_firmware-mal/`: ferdig firmware som bygger for `cyd` og `esp32dev`. `nytt-prosjekt.sh esp32` kopierer den og lager `secrets.h`.
+- `prosjekter/raspberry-pi/_pi-mal/`: Python-mal (MQTT via `bibliotek/python/maker/mqtt.py`, `.env`). Brukes også av `pc-og-sky/_kode-mal` og `kombinert/` via symlenker. Testet mot infrastrukturen.
+- Node-RED krever innlogging (`infrastruktur/nodered/settings.js`), flyten «Verksted» er koblet til Mosquitto.
+- PlatformIO-plattformer: `espressif32`, `atmelavr`, `raspberrypi` (offisiell, uten Pico W Wi-Fi). MicroPython for ESP32 i `verktoy/firmware/` (gitignored).
 - `verktoy/pi-oppsett.sh`: oppsett av ny Pi over SSH (ikke testet på Pi ennå).
 - Maskinvare: 4 × CYD bestilt (`esp32-01`–`esp32-04`). Pi 5 (`pi-sentral`), Pi 4, Pi 3, Pi Zero i skuffen. Mangler SD-kort, strøm og kjøling til Pi 5.
 

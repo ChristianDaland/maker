@@ -88,8 +88,14 @@ services:
       - "1880:1880"
     environment:
       TZ: Europe/Oslo
+      NODERED_BRUKER: ${NODERED_BRUKER}
+      NODERED_PASSORD: ${NODERED_PASSORD}
+      NODERED_KRYPTERINGSNOKKEL: ${NODERED_KRYPTERINGSNOKKEL}
+      MQTT_BRUKER: ${MQTT_BRUKER}
+      MQTT_PASSORD: ${MQTT_PASSORD}
     volumes:
       - nodered-data:/data
+      - ./nodered/settings.js:/data/settings.js:ro
 
 volumes:
   mosquitto-data:

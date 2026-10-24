@@ -24,3 +24,7 @@ venv/
 *.swp
 .directory
 .DS_Store
+
+# Nedlastede firmware-filer (lastes ned på nytt ved behov)
+verktoy/firmware/*.bin
+verktoy/firmware/*.uf2

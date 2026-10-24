@@ -3,6 +3,9 @@
 Kort dagbok over arbeid i verkstedet. Nyeste øverst.
 
 ## 2026-10-24
+- Node-RED sikret med innlogging, ferdig koblet til Mosquitto (fanen «Verksted»).
+- Python-mal for Pi/PC (`_pi-mal`) og `bibliotek/python/maker/mqtt.py`, testet mot infrastrukturen. `nytt-prosjekt.sh` støtter nå alle `_<mappe>-mal`.
+- PlatformIO: lagt til Arduino AVR og Raspberry Pi Pico (testbygg OK). MicroPython 1.29.0 for ESP32 lastet ned. Markdown All in One installert.
 - Forberedt alt som kan gjøres uten maskinvare:
   - `infrastruktur/`: Mosquitto + Telegraf + InfluxDB + Grafana + Node-RED i Docker Compose, kjører på PC-en. Testet MQTT → InfluxDB → Grafana. Dashbord «Verksted – oversikt».
   - `bibliotek/esp32/maker_nett` og `bibliotek/esp32/cyd`, firmware-mal for ESP32 (CYD). Testbygget OK.

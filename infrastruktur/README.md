@@ -18,7 +18,7 @@ ESP32-er ──MQTT──► Mosquitto ──► Telegraf ──► InfluxDB ─
 | Telegraf | (intern) | Abonnerer på `maker/+/+/+` og skriver alt til InfluxDB |
 | InfluxDB 2.7 | http://localhost:8086 | Tidsseriedatabase, bucket `maalinger` |
 | Grafana 12.3 | http://localhost:3000 | Dashboards. Datakilde og dashbordet «Verksted – oversikt» lages automatisk |
-| Node-RED 4.1 | http://localhost:1880 | Visuelle flyter |
+| Node-RED 4.1 | http://localhost:1880 | Visuelle flyter. Krever innlogging. Ferdig koblet til Mosquitto |
 
 ### Fra MQTT til database
 
@@ -39,6 +39,7 @@ Bare emner med nøyaktig fire nivåer lagres. `maker/stue/esp32-01/kommando/lys`
 | `.env.example` | Hvilke passord og innstillinger som trengs |
 | `.env` | Ekte passord – **gitignored**, lages med `./lag-env.sh` |
 | `mosquitto/mosquitto.conf` | Broker: krever innlogging, lagrer meldinger |
+| `nodered/settings.js` | Node-RED: innlogging og kryptering av lagrede passord |
 | `telegraf/telegraf.conf` | MQTT → InfluxDB |
 | `grafana/provisioning/` | Datakilde og dashboard-oppsett som lastes ved oppstart |
 | `grafana/dashboards/verksted.json` | Dashbordet «Verksted – oversikt» |
@@ -69,9 +70,12 @@ mosquitto_sub -h localhost -u "$MQTT_BRUKER" -P "$MQTT_PASSORD" -t 'maker/#' -v
 mosquitto_pub -h localhost -u "$MQTT_BRUKER" -P "$MQTT_PASSORD" -t maker/verksted/test-01/temperatur -m 21.5
 ```
 
-### Node-RED og MQTT
+### Node-RED
 
-Første gang i Node-RED: legg til en «mqtt in»-node, og lag en ny broker med server `mosquitto`, port `1883`, og brukernavn og passord fra `.env`.
+- Innlogging: `NODERED_BRUKER` og `NODERED_PASSORD` fra `.env`. Innstillingene ligger i `nodered/settings.js`, og Node-RED nekter å starte uten passord.
+- Fanen «Verksted» er ferdig satt opp. Den har en broker-node kalt «Mosquitto» (med MQTT-passordet lagret kryptert) og en flyt som viser alle meldinger under `maker/#` i debug-panelet. Bruk den samme broker-noden i nye flyter.
+- `NODERED_KRYPTERINGSNOKKEL` krypterer lagrede passord. Hvis den endres, må passordene i flytene legges inn på nytt.
+- Flytene lagres i Docker-volumet `maker_nodered-data`. Eksporter viktige flyter (Meny → Eksporter) og legg dem i prosjektets mappe.
 
 ## Flytte til pi-sentral
 
