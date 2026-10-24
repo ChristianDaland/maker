@@ -40,6 +40,7 @@ Standard filer som alltid skal finnes:
 | Hvert prosjekt | `README.md` | Hva prosjektet er, **hvordan det henger sammen** (deler, dataflyt, kobling), og hvordan det kjøres |
 
 - Ny plattform: lag mappen med både `README.md` og `verktoy.md` før første prosjekt.
+- En plattform kan ha en `_firmware-mal/` som `nytt-prosjekt.sh` kopierer til prosjektets `firmware/` (finnes for `esp32`).
 - Prosjektets `README.md` lages fra malen av `nytt-prosjekt.sh`. Hold delen «Slik henger det sammen» oppdatert når noe endres.
 - Skriv ned hva som ikke fungerte også, ikke bare løsningen. Det sparer tid neste gang.
 - Kort logg over arbeid føres i `notater/logg.md`, nyeste øverst.

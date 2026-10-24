@@ -3,6 +3,11 @@
 Kort dagbok over arbeid i verkstedet. Nyeste øverst.
 
 ## 2026-10-24
+- Forberedt alt som kan gjøres uten maskinvare:
+  - `infrastruktur/`: Mosquitto + Telegraf + InfluxDB + Grafana + Node-RED i Docker Compose, kjører på PC-en. Testet MQTT → InfluxDB → Grafana. Dashbord «Verksted – oversikt».
+  - `bibliotek/esp32/maker_nett` og `bibliotek/esp32/cyd`, firmware-mal for ESP32 (CYD). Testbygget OK.
+  - `verktoy/pi-oppsett.sh` for nye Pi-er.
+  - ESP32-ene (4 × Cheap Yellow Display, bestilt) og Pi-ene i skuffen ført inn i lageret.
 - Raspberry Pi: planlagt `pi-sentral` (Pi 5, Wi-Fi). `~/.ssh/config` laget, handleliste og sjekkliste i `docs/01-raspberry-pi.md`. Venter på SD-kort.
 - Installert resten av verktøyene: rpi-imager, Thonny, mosquitto-clients, Docker, KiCad, Fritzing, Arduino IDE (Flatpak), mpremote. Docker + MQTT-rundtur testet OK.
 - ESP32-plattformen for PlatformIO lastet ned, testbygg for ESP32, S3 og C3 OK.

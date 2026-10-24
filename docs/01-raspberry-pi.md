@@ -5,6 +5,9 @@
 | Navn (hostname) | Modell | IP / adresse | Rolle | Merknader |
 |---|---|---|---|---|
 | `pi-sentral` | Raspberry Pi 5 | `pi-sentral.local` (Wi-Fi) | Sentral: MQTT, Node-RED, InfluxDB, Grafana (Docker) | Under oppsett – venter på SD-kort |
+| – | Raspberry Pi 4 | | Ikke bestemt | I skuffen. Kandidat: `pi-kamera` eller `pi-robot` |
+| – | Raspberry Pi 3 / 3B+ | | Ikke bestemt | I skuffen |
+| – | Raspberry Pi Zero / Zero 2 W | | Ikke bestemt | I skuffen. Lite minne – best til enkle oppgaver |
 
 ## Oppsett av pi-sentral
 
@@ -36,10 +39,10 @@
 - [ ] Skaffe utstyr fra handlelisten
 - [ ] Skrive SD-kort med valgene over
 - [ ] Første oppstart og `ssh pi-sentral`
-- [ ] `sudo apt update && sudo apt full-upgrade -y`
+- [ ] `ssh pi-sentral 'bash -s -- --docker --repo' < ~/maker/verktoy/pi-oppsett.sh` og omstart
 - [ ] Fast IP-adresse: reserver adressen for Pi-en i ruteren (DHCP-reservasjon), så den alltid får samme IP
 - [ ] Koble til med VS Code Remote-SSH
-- [ ] Installere Docker på Pi-en (forberedelse til `infrastruktur/`)
+- [ ] Flytte `infrastruktur/` til Pi-en (se [infrastruktur/README.md](../infrastruktur/README.md#flytte-til-pi-sentral))
 - [ ] Valgfritt: Tailscale på Pi-en for tilgang utenfra (PC-en har allerede Tailscale)
 
 ## Klargjøre et nytt SD-kort (headless)
@@ -95,10 +98,15 @@ Merk: VS Code-serveren trenger litt minne. Pi 3 og nyere går fint; Pi Zero 2 W 
 
 ## Første ting å gjøre på en ny Pi
 
+Kjør oppsettskriptet fra PC-en (Pi-en må være oppe og nåbar med `ssh`):
+
 ```bash
-sudo apt update && sudo apt full-upgrade -y
-sudo apt install -y git python3-venv
+ssh pi-sentral 'bash -s' < ~/maker/verktoy/pi-oppsett.sh                     # grunnoppsett
+ssh pi-sentral 'bash -s -- --docker --repo' < ~/maker/verktoy/pi-oppsett.sh  # + Docker og maker-repoet
+ssh pi-sentral sudo reboot
 ```
+
+[`verktoy/pi-oppsett.sh`](../verktoy/pi-oppsett.sh) oppdaterer systemet, installerer git, Python-venv, mosquitto-clients og i2c-tools, slår på I2C og SPI, og legger brukeren i gruppene `gpio`, `i2c`, `spi` og `dialout`. Med `--docker` installeres Docker, og med `--repo` klones dette repoet til `~/maker`. Skriptet er ikke testet på en ekte Pi ennå.
 
 ## Ett virtuelt Python-miljø per prosjekt
 

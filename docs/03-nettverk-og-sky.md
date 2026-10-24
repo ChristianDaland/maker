@@ -20,7 +20,7 @@ ESP32-sensorer ──MQTT──► Broker (Mosquitto) ──► Node-RED ──�
 | Grafana | Grafer og dashboards | 3000 | Pi eller PC (Docker) |
 | Home Assistant | Smarthjem, hvis prosjekter skal inn der | 8123 | Egen Pi anbefales |
 
-Oppsett av disse dokumenteres i [`infrastruktur/`](../infrastruktur/README.md), med Docker Compose.
+Mosquitto, Telegraf, InfluxDB, Grafana og Node-RED er **satt opp og testet** med Docker Compose i [`infrastruktur/`](../infrastruktur/README.md) (kjører foreløpig på EliteBooken, skal flyttes til `pi-sentral`). Telegraf lagrer automatisk alt på `maker/<sted>/<enhet>/<navn>` i InfluxDB. Home Assistant er ikke satt opp.
 
 ## Teste MQTT fra terminalen
 

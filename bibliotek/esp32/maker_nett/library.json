@@ -1,0 +1,10 @@
+{
+  "name": "maker_nett",
+  "version": "0.1.0",
+  "description": "Wi-Fi og MQTT for verkstedet: tilkobling, gjenoppkobling, status (online/offline) og emner på formen maker/<sted>/<enhet>/<navn>",
+  "frameworks": "arduino",
+  "platforms": "espressif32",
+  "dependencies": {
+    "knolleary/PubSubClient": "^2.8"
+  }
+}

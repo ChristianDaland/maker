@@ -50,6 +50,17 @@ if [[ -e "$mappe" ]]; then
 fi
 
 cp -r "$mal" "$mappe"
+
+# Plattformen kan ha egen firmware-mal (f.eks. prosjekter/esp32/_firmware-mal)
+fw_mal="$rot/prosjekter/$plattform/_firmware-mal"
+if [[ -d "$fw_mal" ]]; then
+    cp -r "$fw_mal/." "$mappe/firmware/"
+    # Lag secrets.h fra eksempelet, så prosjektet kan bygges med en gang (gitignored)
+    for eks in "$mappe"/firmware/include/secrets.example.*; do
+        [[ -e "$eks" ]] && cp --update=none "$eks" "${eks/secrets.example./secrets.}"
+    done
+fi
+
 find "$mappe" -name .gitkeep -delete
 
 # Escape tegn som har spesiell betydning i sed-erstatningen

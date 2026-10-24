@@ -53,6 +53,15 @@ Rammeverket ble først laget for Windows (`C:\Maker`, PowerShell, winget, WSL, O
 - Før kort logg i `notater/logg.md` etter hver økt.
 - Commit med korte norske meldinger. Repoet er **offentlig** på github.com/ChristianDaland/maker (remote `origin`, branch `main`) – sjekk at ingen hemmeligheter eller personlige detaljer er med før push.
 
+## Det som er klart (2026-10-24)
+
+- Alle PC-verktøy installert (se `docs/00-oppsett-pc.md`), inkl. PlatformIO med `espressif32`.
+- `infrastruktur/`: Mosquitto, Telegraf, InfluxDB, Grafana og Node-RED kjører i Docker på PC-en. Passord i `infrastruktur/.env` (gitignored). Testet ende til ende.
+- `bibliotek/esp32/`: `maker_nett` (Wi-Fi/MQTT) og `cyd` (ESP32-2432S028R «Cheap Yellow Display»).
+- `prosjekter/esp32/_firmware-mal/`: ferdig firmware som bygger for `cyd` og `esp32dev`. `nytt-prosjekt.sh esp32` kopierer den og lager `secrets.h`.
+- `verktoy/pi-oppsett.sh`: oppsett av ny Pi over SSH (ikke testet på Pi ennå).
+- Maskinvare: 4 × CYD bestilt (`esp32-01`–`esp32-04`). Pi 5 (`pi-sentral`), Pi 4, Pi 3, Pi Zero i skuffen. Mangler SD-kort, strøm og kjøling til Pi 5.
+
 ## Status og plan
 
 Se `notater/logg.md` for siste status. Plan videre: Raspberry Pi → ESP32 → MQTT/Node-RED-infrastruktur.

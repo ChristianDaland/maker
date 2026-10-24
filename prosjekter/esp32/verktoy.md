@@ -19,6 +19,10 @@ Hvilke verktøy vi bruker når vi jobber med ESP32, og til hva. Installasjonssta
 | `knolleary/PubSubClient` | MQTT-klient |
 | `bblanchon/ArduinoJson` | Lage og lese JSON-meldinger |
 | `WiFi` (innebygd) | Wi-Fi-tilkobling |
-| Felles kode i `bibliotek/esp32/` | Vårt eget, via `lib_extra_dirs` |
+| `lovyan03/LovyanGFX` | Skjerm og berøring på CYD-kortene |
+| `maker_nett` (vårt eget) | Wi-Fi + MQTT etter verkstedets konvensjoner |
+| `cyd` (vårt eget) | Pinner, skjerm, LED og lyssensor på CYD-kortene |
+
+Firmware-malen i [`_firmware-mal/`](_firmware-mal/) har alt dette ferdig satt opp. Se [docs/02-esp32.md](../../docs/02-esp32.md#nytt-esp32-prosjekt).
 
 Hemmeligheter: `firmware/include/secrets.h` (gitignored) med `secrets.example.h` ved siden av.
