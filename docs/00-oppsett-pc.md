@@ -10,7 +10,7 @@ Sist kontrollert: 2026-10-24.
 
 Dette må være på plass før ESP32 og andre kort fungerer over USB.
 
-- [x] **Bruker i gruppen `dialout`** (2026-10-24, krever utlogging før det gjelder) – uten dette får du «Permission denied» på seriellporten.
+- [x] **Bruker i gruppen `dialout`** (2026-10-24, aktiv etter ny innlogging) – uten dette får du «Permission denied» på seriellporten.
   ```bash
   sudo usermod -aG dialout $USER
   ```
@@ -75,6 +75,16 @@ Merk at gruppen `docker` i praksis gir root-tilgang.
 
 Installer fra terminalen med `code --install-extension <ID>`. PlatformIO IDE trenger `python3-venv` for å lage sitt eget miljø i `~/.platformio`.
 
+PlatformIO IDE installerer selve PlatformIO Core i `~/.platformio/penv/` første gang VS Code åpnes. For å kunne bruke `pio` i en vanlig terminal (ikke bare i VS Code sin PlatformIO-terminal):
+
+```bash
+ln -s ~/.platformio/penv/bin/pio ~/.local/bin/pio
+ln -s ~/.platformio/penv/bin/platformio ~/.local/bin/platformio
+```
+
+- [x] PlatformIO Core 6.2.0 i `~/.platformio`, `pio` i PATH (2026-10-24)
+- [ ] Plattformen `espressif32` (lastes ned automatisk ved første ESP32-bygg, flere hundre MB)
+
 ## Mikrokontrollere
 
 | Verktøy | Brukes til | Installasjon | Installert |
@@ -121,3 +131,4 @@ Skriv her når noe er endret i oppsettet, med dato:
 
 - 2026-10-24: Kartlagt utgangspunkt. Git, Python 3.12 og VS Code finnes. Bruker er ikke i `dialout`. brltty er installert (6.6-4ubuntu5). Resten mangler.
 - 2026-10-24: Installert python3-venv, pipx, esptool 5.6.0 (pipx) og VS Code-utvidelsene PlatformIO IDE, Python og Remote-SSH. Lagt til i `dialout`, fjernet brltty, lagt inn PlatformIO-udev-regler. PlatformIO-kjernen (`~/.platformio`) settes opp første gang VS Code åpnes med utvidelsen.
+- 2026-10-24: PlatformIO Core 6.2.0 satt opp av VS Code-utvidelsen. `pio` lenket inn i `~/.local/bin`. Logget inn på nytt, `dialout` er aktiv.

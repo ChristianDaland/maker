@@ -3,6 +3,7 @@
 Kort dagbok over arbeid i verkstedet. Nyeste øverst.
 
 ## 2026-10-24
+- PlatformIO Core 6.2.0 kontrollert og `pio` lagt i PATH. `dialout` aktiv.
 - Installert grunnmuren: python3-venv, pipx, esptool 5.6.0, VS Code-utvidelsene PlatformIO/Python/Remote-SSH. Lagt til i `dialout`, fjernet brltty, PlatformIO-udev-regler på plass.
 - PS4: demontert, PSU mistenkt defekt, trenger ny kjølepasta. Lagt på is som vinterprosjekt.
 - Publisert som offentlig GitHub-repo `ChristianDaland/maker`, med plattformene som mapper og topics for plattformene.
