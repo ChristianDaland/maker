@@ -1,0 +1,56 @@
+# CLAUDE.md – kontekst for Claude Code i ~/maker
+
+## Hvem og hva
+
+- Hobbyverksted på en HP EliteBook med **Linux Mint 22.3** (Ubuntu 24.04-base), bruker `odd_christian`.
+- Prosjekter med Raspberry Pi, ESP32, sensorer, motorer, kamera, roboter, og kombinasjoner av elektronikk, data og skyløsninger.
+- **Språk:** brukeren skriver norsk, og all dokumentasjon, alle kommentarer i README-er og commit-meldinger skrives på norsk (bokmål).
+
+## Historikk
+
+Rammeverket ble først laget for Windows (`C:\Maker`, PowerShell, winget, WSL, OneDrive) i en tidligere samtale. Det ble tilpasset Linux Mint 2026-10-24. Ikke foreslå Windows-verktøy, drivere eller stier. `nytt-prosjekt.ps1` er erstattet av `verktoy/nytt-prosjekt.sh`.
+
+## Struktur
+
+| Sti | Innhold |
+|---|---|
+| `README.md` | Oversikt over verkstedet |
+| `docs/00-oppsett-pc.md` | Verktøy på PC-en med **avkrysningslister** – hold dem oppdatert når noe installeres |
+| `docs/01-raspberry-pi.md` | rpi-imager, headless, SSH-nøkler, Remote-SSH, venv |
+| `docs/02-esp32.md` | PlatformIO, MicroPython, seriellport, BOOT-knapp, secrets |
+| `docs/03-nettverk-og-sky.md` | MQTT, Node-RED, InfluxDB, Grafana, Home Assistant, sky |
+| `docs/04-elektronikk-og-sikkerhet.md` | Strøm, jord, 3,3 V, motordrivere, batterier |
+| `docs/konvensjoner.md` | Navngiving, Git, hemmeligheter |
+| `prosjekter/_mal/` | Mal: `README.md` med `{{NAVN}}`/`{{DATO}}`, mappene `firmware/`, `pi/`, `hardware/`, `docs/` |
+| `prosjekter/ÅÅÅÅ-MM-<slug>/` | Ett prosjekt per mappe, lages med `verktoy/nytt-prosjekt.sh "Navn"` |
+| `bibliotek/esp32/`, `bibliotek/python/` | Gjenbrukbar kode |
+| `komponenter/lager.md`, `komponenter/datablad/` | Komponentoversikt og datablad |
+| `infrastruktur/` | Felles tjenester med Docker Compose (ikke satt opp ennå) |
+| `notater/logg.md` | Arbeidslogg, nyeste øverst – **før kort logg etter hver økt** |
+| `notater/ideer.md` | Løse ideer |
+
+## Konvensjoner (kort)
+
+- Filnavn og mapper: små bokstaver, bindestrek, ingen æøå. Prosjektmapper `ÅÅÅÅ-MM-navn`.
+- Enheter: `esp32-01`, `pi-sentral`, `pi-kamera` – samme navn som hostname og i MQTT.
+- MQTT-emner: `maker/<sted>/<enhet>/<måling>`.
+- Hemmeligheter i `secrets.*` / `.env` (gitignored), alltid med `secrets.example.*` / `.env.example` ved siden av. Aldri sjekk inn `*.pem`/`*.key`.
+- Python: ett `.venv` per prosjekt, aldri `pip install` i systemets Python. CLI-verktøy via `pipx`.
+
+## Linux-spesifikt
+
+- Seriellporter: `/dev/ttyUSB0` (CP210x/CH340) eller `/dev/ttyACM0` (innebygd USB). Feilsøk med `sudo dmesg -w` og `lsusb`.
+- Bruker må være i gruppen `dialout`.
+- `brltty` stjeler CH340-kort (1a86:7523) – bør fjernes.
+- PlatformIO-udev-regler: `/etc/udev/rules.d/99-platformio-udev.rules`.
+
+## Arbeidsmåte for Claude
+
+- **Spør før du installerer noe eller bruker `sudo`.** Vis hva som mangler først.
+- Oppdater avkrysningslistene i `docs/00-oppsett-pc.md` når noe blir installert (med versjon).
+- Før kort logg i `notater/logg.md` etter hver økt.
+- Commit med korte norske meldinger.
+
+## Status og plan
+
+Se `notater/logg.md` for siste status. Plan videre: Raspberry Pi → ESP32 → MQTT/Node-RED-infrastruktur.
