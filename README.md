@@ -8,7 +8,7 @@ Alt som har med disse prosjektene å gjøre, bor her: kode, koblingsskjemaer, no
 
 Rotmappen er `~/maker` (`/home/odd_christian/maker`) på en HP EliteBook med Linux Mint. Stien er kort og har verken mellomrom eller æ, ø, å, noe som unngår trøbbel med PlatformIO og andre byggeverktøy.
 
-Sikkerhetskopi og deling håndteres med Git (og etter hvert GitHub).
+Sikkerhetskopi og deling håndteres med Git og GitHub: [github.com/ChristianDaland/maker](https://github.com/ChristianDaland/maker) (offentlig). Plattformene er mapper i repoet, akkurat som lokalt.
 
 ## Mappestruktur
 
@@ -24,17 +24,17 @@ Sikkerhetskopi og deling håndteres med Git (og etter hvert GitHub).
 
 ## Prosjekter per plattform
 
-```
-prosjekter/
-├── _mal/            mal som kopieres for hvert nytt prosjekt
-├── raspberry-pi/    kjører på en Raspberry Pi
-├── esp32/           ESP32 som hovedenhet
-├── arduino/         Arduino Uno, Nano, Mega osv.
-├── pico/            Raspberry Pi Pico (RP2040/RP2350)
-├── pc-og-sky/       kjører på PC-en eller i skyen, uten mikrokontroller
-├── kombinert/       flere plattformer sammen, f.eks. ESP32-sensorer + Pi-sentral
-└── reparasjon/      reparere ferdige produkter, f.eks. spillkonsoller
-```
+| Plattform | Hva som ligger der | Verktøy |
+|---|---|---|
+| [raspberry-pi](prosjekter/raspberry-pi/) | Kjører på en Raspberry Pi | [verktoy.md](prosjekter/raspberry-pi/verktoy.md) |
+| [esp32](prosjekter/esp32/) | ESP32 som hovedenhet | [verktoy.md](prosjekter/esp32/verktoy.md) |
+| [arduino](prosjekter/arduino/) | Arduino Uno, Nano, Mega osv. | [verktoy.md](prosjekter/arduino/verktoy.md) |
+| [pico](prosjekter/pico/) | Raspberry Pi Pico (RP2040/RP2350) | [verktoy.md](prosjekter/pico/verktoy.md) |
+| [pc-og-sky](prosjekter/pc-og-sky/) | Kjører på PC-en eller i skyen, uten mikrokontroller | [verktoy.md](prosjekter/pc-og-sky/verktoy.md) |
+| [kombinert](prosjekter/kombinert/) | Flere plattformer sammen, f.eks. ESP32-sensorer + Pi-sentral | [verktoy.md](prosjekter/kombinert/verktoy.md) |
+| [reparasjon](prosjekter/reparasjon/) | Reparere ferdige produkter, f.eks. spillkonsoller | [verktoy.md](prosjekter/reparasjon/verktoy.md) |
+
+Malen for nye prosjekter ligger i [prosjekter/_mal/](prosjekter/_mal/).
 
 Hver plattformmappe har en `README.md` (hva som hører hjemme der) og en `verktoy.md` (hvilke verktøy vi bruker). Under hver plattform ligger én mappe per prosjekt, f.eks. `prosjekter/esp32/2026-10-vaerstasjon-ute/`, og hvert prosjekt har en `README.md` som forklarer prosjektet og hvordan det henger sammen.
 

@@ -9,7 +9,9 @@
 
 ## Git
 
-- Hele `~/maker` er ett Git-repo. Skill ut prosjekter som vokser seg store til egne repoer.
+- Hele `~/maker` er ett Git-repo, publisert som **offentlig** repo på [github.com/ChristianDaland/maker](https://github.com/ChristianDaland/maker). Plattformene er mapper i repoet, slik som lokalt.
+- Fordi repoet er offentlig: ikke skriv passord, nøkler, IP-adresser utenfra, Wi-Fi-navn, adresse eller serienumre i filer som sjekkes inn.
+- Skill ut prosjekter som vokser seg store til egne repoer med navnet `<plattform>-<prosjekt>` (f.eks. `esp32-vaerstasjon`) og topics `maker` + plattform, og lenk til dem fra plattformens `README.md`.
 - Commit ofte, med korte meldinger på norsk som forteller hva som er endret.
 - Byggemapper (`.pio/`, `__pycache__/`, `.venv/`) står i `.gitignore`.
 

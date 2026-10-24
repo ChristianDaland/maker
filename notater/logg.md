@@ -3,6 +3,7 @@
 Kort dagbok over arbeid i verkstedet. Nyeste øverst.
 
 ## 2026-10-24
+- Publisert som offentlig GitHub-repo `ChristianDaland/maker`, med plattformene som mapper og topics for plattformene.
 - Ny plattform `reparasjon/` med `verktoy.md`. Prosjekt `reparasjon/2026-10-playstation-4` opprettet; modell og symptom ikke fylt ut ennå.
 - Standard filer innført: `verktoy.md` i hver plattformmappe, og prosjektmalens `README.md` har fått delen «Slik henger det sammen» (deler, dataflyt, kobling).
 - Prosjekter organisert per plattform: `prosjekter/{raspberry-pi,esp32,arduino,pico,pc-og-sky,kombinert}/`. `nytt-prosjekt.sh` tar nå plattform som første argument.

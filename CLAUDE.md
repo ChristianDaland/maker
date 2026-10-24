@@ -51,7 +51,7 @@ Rammeverket ble først laget for Windows (`C:\Maker`, PowerShell, winget, WSL, O
 - Standard filer: hver plattformmappe har `README.md` + `verktoy.md`; hvert prosjekt har `README.md` med «Slik henger det sammen» (deler, dataflyt, kobling). Oppdater `verktoy.md` når et nytt verktøy tas i bruk, og prosjektets README når oppbyggingen endres.
 - Oppdater avkrysningslistene i `docs/00-oppsett-pc.md` når noe blir installert (med versjon).
 - Før kort logg i `notater/logg.md` etter hver økt.
-- Commit med korte norske meldinger.
+- Commit med korte norske meldinger. Repoet er **offentlig** på github.com/ChristianDaland/maker (remote `origin`, branch `main`) – sjekk at ingen hemmeligheter eller personlige detaljer er med før push.
 
 ## Status og plan
 
