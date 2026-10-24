@@ -1,5 +1,5 @@
 # Ideer
 
-Løse prosjektideer. Flytt til `prosjekter/` når en idé blir til noe.
+Løse prosjektideer. Flytt til riktig plattformmappe under `prosjekter/` når en idé blir til noe.
 
 - 

@@ -106,7 +106,7 @@ Installer **aldri** pakker med `pip install` i systemets Python (Mint/Ubuntu sto
 - Biblioteker til et prosjekt: lag et virtuelt miljø i prosjektmappen.
 
 ```bash
-cd ~/maker/prosjekter/2026-10-noe
+cd ~/maker/prosjekter/pc-og-sky/2026-10-noe
 python3 -m venv .venv
 source .venv/bin/activate
 pip install pyserial paho-mqtt opencv-python numpy matplotlib

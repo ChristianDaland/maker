@@ -1,17 +1,34 @@
 #!/usr/bin/env bash
 # Oppretter et nytt prosjekt fra malen i prosjekter/_mal
-# Bruk: verktoy/nytt-prosjekt.sh "Værstasjon ute"
-#   -> prosjekter/ÅÅÅÅ-MM-vaerstasjon-ute/
+# Bruk: verktoy/nytt-prosjekt.sh <plattform> "Prosjektnavn"
+#   verktoy/nytt-prosjekt.sh esp32 "Værstasjon ute"
+#   -> prosjekter/esp32/ÅÅÅÅ-MM-vaerstasjon-ute/
 set -euo pipefail
 
-if [[ $# -ne 1 || -z "$1" ]]; then
-    echo "Bruk: $0 \"Prosjektnavn\"" >&2
+rot="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+mal="$rot/prosjekter/_mal"
+
+# Plattformer = alle mapper i prosjekter/ unntatt _mal
+plattformer=()
+for d in "$rot"/prosjekter/*/; do
+    p="$(basename "$d")"
+    [[ "$p" == _* ]] || plattformer+=("$p")
+done
+
+if [[ $# -ne 2 || -z "$2" ]]; then
+    echo "Bruk: $0 <plattform> \"Prosjektnavn\"" >&2
+    echo "Plattformer: ${plattformer[*]}" >&2
     exit 1
 fi
 
-navn="$1"
-rot="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-mal="$rot/prosjekter/_mal"
+plattform="$1"
+navn="$2"
+
+if [[ ! " ${plattformer[*]} " == *" $plattform "* ]]; then
+    echo "Ukjent plattform: $plattform" >&2
+    echo "Plattformer: ${plattformer[*]}" >&2
+    exit 1
+fi
 
 # Lag et filnavnvennlig navn: små bokstaver, ae/o/a i stedet for æ/ø/å, bindestrek
 slug="${navn,,}"
@@ -25,7 +42,7 @@ if [[ -z "$slug" ]]; then
     exit 1
 fi
 
-mappe="$rot/prosjekter/$(date +%Y-%m)-$slug"
+mappe="$rot/prosjekter/$plattform/$(date +%Y-%m)-$slug"
 
 if [[ -e "$mappe" ]]; then
     echo "Prosjektet finnes allerede: $mappe" >&2
@@ -37,6 +54,8 @@ find "$mappe" -name .gitkeep -delete
 
 # Escape tegn som har spesiell betydning i sed-erstatningen
 navn_sed="$(printf '%s' "$navn" | sed 's/[&|\\]/\\&/g')"
-sed -i -e "s|{{NAVN}}|$navn_sed|g" -e "s|{{DATO}}|$(date +%Y-%m-%d)|g" "$mappe/README.md"
+sed -i -e "s|{{NAVN}}|$navn_sed|g" \
+       -e "s|{{DATO}}|$(date +%Y-%m-%d)|g" \
+       -e "s|{{PLATTFORM}}|$plattform|g" "$mappe/README.md"
 
 echo "Opprettet: $mappe"

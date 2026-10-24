@@ -21,8 +21,9 @@ Rammeverket ble først laget for Windows (`C:\Maker`, PowerShell, winget, WSL, O
 | `docs/03-nettverk-og-sky.md` | MQTT, Node-RED, InfluxDB, Grafana, Home Assistant, sky |
 | `docs/04-elektronikk-og-sikkerhet.md` | Strøm, jord, 3,3 V, motordrivere, batterier |
 | `docs/konvensjoner.md` | Navngiving, Git, hemmeligheter |
-| `prosjekter/_mal/` | Mal: `README.md` med `{{NAVN}}`/`{{DATO}}`, mappene `firmware/`, `pi/`, `hardware/`, `docs/` |
-| `prosjekter/ÅÅÅÅ-MM-<slug>/` | Ett prosjekt per mappe, lages med `verktoy/nytt-prosjekt.sh "Navn"` |
+| `prosjekter/_mal/` | Mal: `README.md` med `{{NAVN}}`/`{{DATO}}`/`{{PLATTFORM}}`, mappene `firmware/`, `pi/`, `hardware/`, `docs/` |
+| `prosjekter/<plattform>/` | `raspberry-pi`, `esp32`, `arduino`, `pico`, `pc-og-sky`, `kombinert` (flere plattformer sammen) |
+| `prosjekter/<plattform>/ÅÅÅÅ-MM-<slug>/` | Ett prosjekt per mappe, lages med `verktoy/nytt-prosjekt.sh <plattform> "Navn"` |
 | `bibliotek/esp32/`, `bibliotek/python/` | Gjenbrukbar kode |
 | `komponenter/lager.md`, `komponenter/datablad/` | Komponentoversikt og datablad |
 | `infrastruktur/` | Felles tjenester med Docker Compose (ikke satt opp ennå) |

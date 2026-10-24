@@ -3,6 +3,7 @@
 Kort dagbok over arbeid i verkstedet. Nyeste øverst.
 
 ## 2026-10-24
+- Prosjekter organisert per plattform: `prosjekter/{raspberry-pi,esp32,arduino,pico,pc-og-sky,kombinert}/`. `nytt-prosjekt.sh` tar nå plattform som første argument.
 - Rammeverket fra `Maker.zip` (laget for Windows) tilpasset Linux Mint og lagt i `~/maker`.
 - Skrevet om docs for Linux: seriellporter, dialout, brltty, udev, pipx/venv, ssh-copy-id.
 - `nytt-prosjekt.ps1` erstattet med `verktoy/nytt-prosjekt.sh`.

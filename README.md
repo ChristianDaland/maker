@@ -15,12 +15,27 @@ Sikkerhetskopi og deling håndteres med Git (og etter hvert GitHub).
 | Mappe | Innhold |
 |---|---|
 | `docs/` | Dokumentasjon av selve oppsettet: verktøy, rutiner og konvensjoner |
-| `prosjekter/` | Én mappe per prosjekt, laget fra malen i `prosjekter/_mal/` |
+| `prosjekter/` | Prosjekter sortert per plattform (se under), laget fra malen i `prosjekter/_mal/` |
 | `bibliotek/` | Gjenbrukbar kode som deles mellom prosjekter (ESP32 og Python) |
 | `komponenter/` | Oversikt over komponenter du har (`lager.md`) og datablad |
 | `infrastruktur/` | Felles tjenester: MQTT-broker, Node-RED, database, dashboards |
 | `verktoy/` | Hjelpeskript, f.eks. for å opprette nye prosjekter |
 | `notater/` | Løse notater, ideer og en logg over hva som er gjort |
+
+## Prosjekter per plattform
+
+```
+prosjekter/
+├── _mal/            mal som kopieres for hvert nytt prosjekt
+├── raspberry-pi/    kjører på en Raspberry Pi
+├── esp32/           ESP32 som hovedenhet
+├── arduino/         Arduino Uno, Nano, Mega osv.
+├── pico/            Raspberry Pi Pico (RP2040/RP2350)
+├── pc-og-sky/       kjører på PC-en eller i skyen, uten mikrokontroller
+└── kombinert/       flere plattformer sammen, f.eks. ESP32-sensorer + Pi-sentral
+```
+
+Under hver plattform ligger én mappe per prosjekt, f.eks. `prosjekter/esp32/2026-10-vaerstasjon-ute/`. Trengs en ny plattform, lag en ny mappe i `prosjekter/` med en kort `README.md`, så kjenner skriptet den igjen automatisk.
 
 ## Dokumentasjon
 
@@ -36,10 +51,10 @@ Sikkerhetskopi og deling håndteres med Git (og etter hvert GitHub).
 Åpne en terminal og kjør:
 
 ```bash
-~/maker/verktoy/nytt-prosjekt.sh "Værstasjon ute"
+~/maker/verktoy/nytt-prosjekt.sh esp32 "Værstasjon ute"
 ```
 
-Det lager f.eks. `prosjekter/2026-10-vaerstasjon-ute/` med ferdig mappestruktur og en README du fyller ut.
+Det lager f.eks. `prosjekter/esp32/2026-10-vaerstasjon-ute/` med ferdig mappestruktur og en README du fyller ut. Kjør skriptet uten argumenter for å se hvilke plattformer som finnes.
 
 ## Hva verkstedet kan brukes til
 

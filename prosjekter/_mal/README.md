@@ -1,5 +1,6 @@
 # {{NAVN}}
 
+Plattform: {{PLATTFORM}}
 Startet: {{DATO}}
 Status: idé / pågår / fungerer / lagt på is
 
