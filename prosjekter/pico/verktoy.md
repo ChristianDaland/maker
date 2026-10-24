@@ -6,7 +6,7 @@ Hvilke verktøy vi bruker når vi jobber med Raspberry Pi Pico / Pico W / Pico 2
 |---|---|
 | MicroPython (UF2-fil) | **Hovedvalg.** Hold BOOTSEL inne mens Pico kobles til, og dra `.uf2`-filen over på disken `RPI-RP2` |
 | Thonny | Laste opp `.py`-filer og bruke REPL (tolk «MicroPython (Raspberry Pi Pico)») |
-| `mpremote` (via pipx, installert) | Det samme fra terminalen: `mpremote cp main.py :`, `mpremote repl` |
+| `mpremote` (via pipx) | Det samme fra terminalen: `mpremote cp main.py :`, `mpremote repl` |
 | VS Code + Raspberry Pi Pico-utvidelsen | C/C++ med Pico SDK, når vi trenger fart eller PIO |
 | PlatformIO | Alternativ for Arduino-rammeverket på Pico |
 | `picotool` | Lese informasjon fra og flashe Pico fra terminalen |
