@@ -32,7 +32,8 @@ prosjekter/
 ├── arduino/         Arduino Uno, Nano, Mega osv.
 ├── pico/            Raspberry Pi Pico (RP2040/RP2350)
 ├── pc-og-sky/       kjører på PC-en eller i skyen, uten mikrokontroller
-└── kombinert/       flere plattformer sammen, f.eks. ESP32-sensorer + Pi-sentral
+├── kombinert/       flere plattformer sammen, f.eks. ESP32-sensorer + Pi-sentral
+└── reparasjon/      reparere ferdige produkter, f.eks. spillkonsoller
 ```
 
 Hver plattformmappe har en `README.md` (hva som hører hjemme der) og en `verktoy.md` (hvilke verktøy vi bruker). Under hver plattform ligger én mappe per prosjekt, f.eks. `prosjekter/esp32/2026-10-vaerstasjon-ute/`, og hvert prosjekt har en `README.md` som forklarer prosjektet og hvordan det henger sammen.

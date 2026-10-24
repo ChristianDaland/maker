@@ -22,7 +22,7 @@ Rammeverket ble først laget for Windows (`C:\Maker`, PowerShell, winget, WSL, O
 | `docs/04-elektronikk-og-sikkerhet.md` | Strøm, jord, 3,3 V, motordrivere, batterier |
 | `docs/konvensjoner.md` | Navngiving, Git, hemmeligheter |
 | `prosjekter/_mal/` | Mal: `README.md` med `{{NAVN}}`/`{{DATO}}`/`{{PLATTFORM}}`, mappene `firmware/`, `pi/`, `hardware/`, `docs/` |
-| `prosjekter/<plattform>/` | `raspberry-pi`, `esp32`, `arduino`, `pico`, `pc-og-sky`, `kombinert` (flere plattformer sammen) |
+| `prosjekter/<plattform>/` | `raspberry-pi`, `esp32`, `arduino`, `pico`, `pc-og-sky`, `kombinert` (flere plattformer sammen), `reparasjon` |
 | `prosjekter/<plattform>/ÅÅÅÅ-MM-<slug>/` | Ett prosjekt per mappe, lages med `verktoy/nytt-prosjekt.sh <plattform> "Navn"` |
 | `bibliotek/esp32/`, `bibliotek/python/` | Gjenbrukbar kode |
 | `komponenter/lager.md`, `komponenter/datablad/` | Komponentoversikt og datablad |

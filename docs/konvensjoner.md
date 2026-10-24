@@ -3,7 +3,7 @@
 ## Navngiving
 
 - Mapper og filnavn: små bokstaver, bindestrek i stedet for mellomrom, ingen æ, ø, å. Eksempel: `vaerstasjon-ute`. Inne i dokumentene skriver vi vanlig norsk med æ, ø og å.
-- Prosjekter ligger under en plattformmappe: `prosjekter/<plattform>/` der plattform er `raspberry-pi`, `esp32`, `arduino`, `pico`, `pc-og-sky` eller `kombinert`. Prosjekter som bruker flere plattformer, legges i `kombinert/`.
+- Prosjekter ligger under en plattformmappe: `prosjekter/<plattform>/` der plattform er `raspberry-pi`, `esp32`, `arduino`, `pico`, `pc-og-sky`, `kombinert` eller `reparasjon`. Prosjekter som bruker flere plattformer, legges i `kombinert/`.
 - Prosjektmapper starter med år og måned (`ÅÅÅÅ-MM-navn`): `prosjekter/esp32/2026-10-vaerstasjon-ute`. Da sorteres de kronologisk. Bruk `verktoy/nytt-prosjekt.sh <plattform> "Navn"`, så blir det riktig automatisk.
 - Enheter navngis etter type og nummer eller rolle: `esp32-01`, `esp32-02`, `pi-sentral`, `pi-kamera`. Samme navn brukes som hostname, i MQTT-emner og i dokumentasjonen.
 
