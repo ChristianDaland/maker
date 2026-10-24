@@ -48,6 +48,7 @@ Rammeverket ble først laget for Windows (`C:\Maker`, PowerShell, winget, WSL, O
 ## Arbeidsmåte for Claude
 
 - **Spør før du installerer noe eller bruker `sudo`.** Vis hva som mangler først.
+- Standard filer: hver plattformmappe har `README.md` + `verktoy.md`; hvert prosjekt har `README.md` med «Slik henger det sammen» (deler, dataflyt, kobling). Oppdater `verktoy.md` når et nytt verktøy tas i bruk, og prosjektets README når oppbyggingen endres.
 - Oppdater avkrysningslistene i `docs/00-oppsett-pc.md` når noe blir installert (med versjon).
 - Før kort logg i `notater/logg.md` etter hver økt.
 - Commit med korte norske meldinger.

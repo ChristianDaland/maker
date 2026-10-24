@@ -35,7 +35,9 @@ prosjekter/
 └── kombinert/       flere plattformer sammen, f.eks. ESP32-sensorer + Pi-sentral
 ```
 
-Under hver plattform ligger én mappe per prosjekt, f.eks. `prosjekter/esp32/2026-10-vaerstasjon-ute/`. Trengs en ny plattform, lag en ny mappe i `prosjekter/` med en kort `README.md`, så kjenner skriptet den igjen automatisk.
+Hver plattformmappe har en `README.md` (hva som hører hjemme der) og en `verktoy.md` (hvilke verktøy vi bruker). Under hver plattform ligger én mappe per prosjekt, f.eks. `prosjekter/esp32/2026-10-vaerstasjon-ute/`, og hvert prosjekt har en `README.md` som forklarer prosjektet og hvordan det henger sammen.
+
+Trengs en ny plattform, lag en ny mappe i `prosjekter/` med `README.md` og `verktoy.md`, så kjenner skriptet den igjen automatisk.
 
 ## Dokumentasjon
 

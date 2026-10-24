@@ -59,3 +59,10 @@ sed -i -e "s|{{NAVN}}|$navn_sed|g" \
        -e "s|{{PLATTFORM}}|$plattform|g" "$mappe/README.md"
 
 echo "Opprettet: $mappe"
+echo "Fyll ut README.md, særlig «Slik henger det sammen»."
+
+for f in README.md verktoy.md; do
+    if [[ ! -f "$rot/prosjekter/$plattform/$f" ]]; then
+        echo "Advarsel: prosjekter/$plattform/$f mangler (standard for alle plattformer)." >&2
+    fi
+done

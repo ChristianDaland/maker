@@ -29,6 +29,15 @@ Passord, Wi-Fi-detaljer, API-nøkler og sertifikater skal **aldri** inn i Git.
 
 ## Dokumentasjon
 
-- Hvert prosjekt har en `README.md` basert på malen.
+Standard filer som alltid skal finnes:
+
+| Hvor | Fil | Innhold |
+|---|---|---|
+| Hver plattformmappe (`prosjekter/<plattform>/`) | `README.md` | Hva slags prosjekter som hører hjemme her |
+| Hver plattformmappe | `verktoy.md` | Hvilke verktøy vi bruker for plattformen, og til hva |
+| Hvert prosjekt | `README.md` | Hva prosjektet er, **hvordan det henger sammen** (deler, dataflyt, kobling), og hvordan det kjøres |
+
+- Ny plattform: lag mappen med både `README.md` og `verktoy.md` før første prosjekt.
+- Prosjektets `README.md` lages fra malen av `nytt-prosjekt.sh`. Hold delen «Slik henger det sammen» oppdatert når noe endres.
 - Skriv ned hva som ikke fungerte også, ikke bare løsningen. Det sparer tid neste gang.
 - Kort logg over arbeid føres i `notater/logg.md`, nyeste øverst.
