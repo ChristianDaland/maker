@@ -83,7 +83,7 @@ ln -s ~/.platformio/penv/bin/platformio ~/.local/bin/platformio
 ```
 
 - [x] PlatformIO Core 6.2.0 i `~/.platformio`, `pio` i PATH (2026-10-24)
-- [ ] Plattformen `espressif32` (lastes ned automatisk ved første ESP32-bygg, flere hundre MB)
+- [x] Plattformen `espressif32` 8.0.0 med Arduino-rammeverket 3.3.12 og kompilatorer for ESP32/S2/S3 (Xtensa) og C3/C6 (RISC-V). Testbygg OK for `esp32dev`, `esp32-s3-devkitc-1` og `esp32-c3-devkitm-1` (2026-10-24). `~/.platformio` er ca. 6 GB.
 
 ## Mikrokontrollere
 
@@ -132,3 +132,4 @@ Skriv her når noe er endret i oppsettet, med dato:
 - 2026-10-24: Kartlagt utgangspunkt. Git, Python 3.12 og VS Code finnes. Bruker er ikke i `dialout`. brltty er installert (6.6-4ubuntu5). Resten mangler.
 - 2026-10-24: Installert python3-venv, pipx, esptool 5.6.0 (pipx) og VS Code-utvidelsene PlatformIO IDE, Python og Remote-SSH. Lagt til i `dialout`, fjernet brltty, lagt inn PlatformIO-udev-regler. PlatformIO-kjernen (`~/.platformio`) settes opp første gang VS Code åpnes med utvidelsen.
 - 2026-10-24: PlatformIO Core 6.2.0 satt opp av VS Code-utvidelsen. `pio` lenket inn i `~/.local/bin`. Logget inn på nytt, `dialout` er aktiv.
+- 2026-10-24: Lastet ned `espressif32` 8.0.0 med verktøykjeder. Testbygg for ESP32, ESP32-S3 og ESP32-C3 gikk feilfritt (4 min første gang).
