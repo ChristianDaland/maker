@@ -10,17 +10,17 @@ Sist kontrollert: 2026-10-24.
 
 Dette må være på plass før ESP32 og andre kort fungerer over USB.
 
-- [ ] **Bruker i gruppen `dialout`** – uten dette får du «Permission denied» på seriellporten.
+- [x] **Bruker i gruppen `dialout`** (2026-10-24, krever utlogging før det gjelder) – uten dette får du «Permission denied» på seriellporten.
   ```bash
   sudo usermod -aG dialout $USER
   ```
   Logg deretter ut og inn igjen (eller start på nytt). Sjekk med `groups`.
-- [ ] **brltty fjernet** – brltty er et program for leselister (punktskrift). Udev-regelen dens tar tak i CH340-brikker (USB-ID `1a86:7523`), som brukes på mange billige ESP32-kort, og da forsvinner `/dev/ttyUSB0` like etter at kortet kobles til. Bruker du ikke leselist:
+- [x] **brltty fjernet** (2026-10-24) – brltty er et program for leselister (punktskrift). Udev-regelen dens tar tak i CH340-brikker (USB-ID `1a86:7523`), som brukes på mange billige ESP32-kort, og da forsvinner `/dev/ttyUSB0` like etter at kortet kobles til. Bruker du ikke leselist:
   ```bash
   dpkg -s brltty | grep Status      # sjekk om den er installert
   sudo apt remove brltty
   ```
-- [ ] **PlatformIO sine udev-regler** – gir riktige rettigheter for en lang rekke kort og programmerere:
+- [x] **PlatformIO sine udev-regler** (2026-10-24) – gir riktige rettigheter for en lang rekke kort og programmerere:
   ```bash
   curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/develop/platformio/assets/system/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
   sudo udevadm control --reload-rules && sudo udevadm trigger
@@ -47,8 +47,8 @@ Linux har drivere for CP210x, CH340 og FTDI innebygd, så du trenger ikke instal
 |---|---|---|---|
 | Git | Versjonskontroll av all kode og dokumentasjon | `sudo apt install git` | [x] 2.43.0 |
 | Python 3 | Skript, dataanalyse, verktøy for ESP32 | Følger med Mint | [x] 3.12.3 |
-| python3-venv | Virtuelle miljøer per prosjekt | `sudo apt install python3-venv` | [ ] |
-| pipx | Installere Python-verktøy (esptool, platformio) isolert | `sudo apt install pipx && pipx ensurepath` | [ ] |
+| python3-venv | Virtuelle miljøer per prosjekt | `sudo apt install python3-venv` | [x] 3.12.3 |
+| pipx | Installere Python-verktøy (esptool, platformio) isolert | `sudo apt install pipx && pipx ensurepath` | [x] 1.4.3 |
 | VS Code | Hovededitor for alt | Fra Microsofts apt-kilde eller .deb | [x] |
 | Docker Engine + Compose | Kjøre MQTT, Node-RED, InfluxDB og Grafana lokalt | Se under | [ ] |
 | mosquitto-clients | `mosquitto_pub` / `mosquitto_sub` for å teste MQTT | `sudo apt install mosquitto-clients` | [ ] |
@@ -68,9 +68,9 @@ Merk at gruppen `docker` i praksis gir root-tilgang.
 
 | Utvidelse | ID | Brukes til | Installert |
 |---|---|---|---|
-| PlatformIO IDE | `platformio.platformio-ide` | Utvikling og flashing av ESP32 og andre mikrokontrollere | [ ] |
-| Python | `ms-python.python` | Python-utvikling lokalt og på Pi | [ ] |
-| Remote - SSH | `ms-vscode-remote.remote-ssh` | Redigere og kjøre kode direkte på Raspberry Pi | [ ] |
+| PlatformIO IDE | `platformio.platformio-ide` | Utvikling og flashing av ESP32 og andre mikrokontrollere | [x] 3.3.4 |
+| Python | `ms-python.python` | Python-utvikling lokalt og på Pi | [x] 2026.10.0 |
+| Remote - SSH | `ms-vscode-remote.remote-ssh` | Redigere og kjøre kode direkte på Raspberry Pi | [x] 0.128.0 |
 | Markdown All in One | `yzhang.markdown-all-in-one` | Skrive og forhåndsvise dokumentasjonen (valgfri) | [ ] |
 
 Installer fra terminalen med `code --install-extension <ID>`. PlatformIO IDE trenger `python3-venv` for å lage sitt eget miljø i `~/.platformio`.
@@ -79,7 +79,7 @@ Installer fra terminalen med `code --install-extension <ID>`. PlatformIO IDE tre
 
 | Verktøy | Brukes til | Installasjon | Installert |
 |---|---|---|---|
-| esptool | Flashing og diagnose av ESP32 | `pipx install esptool` | [ ] |
+| esptool | Flashing og diagnose av ESP32 | `pipx install esptool` | [x] 5.6.0 |
 | Thonny | MicroPython på ESP32 og Pico | `sudo apt install thonny` (eller `pipx install thonny` for nyeste) | [ ] |
 | Arduino IDE 2 | Raske tester og eksempler | AppImage fra arduino.cc, eller Flatpak `cc.arduino.IDE2` | [ ] |
 
@@ -120,3 +120,4 @@ pip freeze > requirements.txt
 Skriv her når noe er endret i oppsettet, med dato:
 
 - 2026-10-24: Kartlagt utgangspunkt. Git, Python 3.12 og VS Code finnes. Bruker er ikke i `dialout`. brltty er installert (6.6-4ubuntu5). Resten mangler.
+- 2026-10-24: Installert python3-venv, pipx, esptool 5.6.0 (pipx) og VS Code-utvidelsene PlatformIO IDE, Python og Remote-SSH. Lagt til i `dialout`, fjernet brltty, lagt inn PlatformIO-udev-regler. PlatformIO-kjernen (`~/.platformio`) settes opp første gang VS Code åpnes med utvidelsen.
