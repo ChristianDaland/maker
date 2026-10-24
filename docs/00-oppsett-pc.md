@@ -50,8 +50,8 @@ Linux har drivere for CP210x, CH340 og FTDI innebygd, så du trenger ikke instal
 | python3-venv | Virtuelle miljøer per prosjekt | `sudo apt install python3-venv` | [x] 3.12.3 |
 | pipx | Installere Python-verktøy (esptool, platformio) isolert | `sudo apt install pipx && pipx ensurepath` | [x] 1.4.3 |
 | VS Code | Hovededitor for alt | Fra Microsofts apt-kilde eller .deb | [x] |
-| Docker Engine + Compose | Kjøre MQTT, Node-RED, InfluxDB og Grafana lokalt | Se under | [ ] |
-| mosquitto-clients | `mosquitto_pub` / `mosquitto_sub` for å teste MQTT | `sudo apt install mosquitto-clients` | [ ] |
+| Docker Engine + Compose | Kjøre MQTT, Node-RED, InfluxDB og Grafana lokalt | Se under | [x] 29.1.3 / Compose 2.40.3 |
+| mosquitto-clients | `mosquitto_pub` / `mosquitto_sub` for å teste MQTT | `sudo apt install mosquitto-clients` | [x] 2.0.18 |
 
 ### Docker Engine
 
@@ -63,6 +63,8 @@ sudo usermod -aG docker $USER     # logg ut og inn etterpå
 ```
 
 Merk at gruppen `docker` i praksis gir root-tilgang.
+
+Installert 2026-10-24 med Ubuntus pakker, bruker lagt i `docker`-gruppen. Testet med `hello-world` og en midlertidig `eclipse-mosquitto:2`-container (pub/sub OK). Imaget `eclipse-mosquitto:2` er beholdt til infrastrukturen.
 
 ## VS Code-utvidelser
 
@@ -90,22 +92,23 @@ ln -s ~/.platformio/penv/bin/platformio ~/.local/bin/platformio
 | Verktøy | Brukes til | Installasjon | Installert |
 |---|---|---|---|
 | esptool | Flashing og diagnose av ESP32 | `pipx install esptool` | [x] 5.6.0 |
-| Thonny | MicroPython på ESP32 og Pico | `sudo apt install thonny` (eller `pipx install thonny` for nyeste) | [ ] |
-| Arduino IDE 2 | Raske tester og eksempler | AppImage fra arduino.cc, eller Flatpak `cc.arduino.IDE2` | [ ] |
+| Thonny | MicroPython på ESP32 og Pico | `sudo apt install thonny` (eller `pipx install thonny` for nyeste) | [x] 4.0.1 (apt) |
+| Arduino IDE 2 | Raske tester og eksempler | AppImage fra arduino.cc, eller Flatpak `cc.arduino.IDE2` | [x] 2.3.10 (Flatpak) |
+| mpremote | Laste opp filer og REPL for MicroPython (Pico, ESP32) fra terminalen | `pipx install mpremote` | [x] 1.29.0 |
 
 ## Raspberry Pi
 
 | Verktøy | Brukes til | Installasjon | Installert |
 |---|---|---|---|
-| Raspberry Pi Imager | Lage SD-kort med forhåndsinnstilt Wi-Fi, bruker og SSH | `sudo apt install rpi-imager` (eller AppImage fra raspberrypi.com) | [ ] |
+| Raspberry Pi Imager | Lage SD-kort med forhåndsinnstilt Wi-Fi, bruker og SSH | `sudo apt install rpi-imager` (eller AppImage fra raspberrypi.com) | [x] 1.8.5 (apt) |
 | OpenSSH-klient | `ssh`, `ssh-keygen`, `ssh-copy-id` | Følger med Mint | [x] |
 
 ## Elektronikk og design
 
 | Verktøy | Brukes til | Installasjon | Installert |
 |---|---|---|---|
-| KiCad | Koblingsskjema og egne kretskort | `sudo apt install kicad` (eller PPA `kicad/kicad-9.0-releases` for nyeste) | [ ] |
-| Fritzing | Enkle koblingsskisser | `sudo apt install fritzing` (eldre versjon, gratis) | [ ] |
+| KiCad | Koblingsskjema og egne kretskort | `sudo apt install kicad` (eller PPA `kicad/kicad-9.0-releases` for nyeste) | [x] 7.0.11 (apt, uten 3D-modeller) |
+| Fritzing | Enkle koblingsskisser | `sudo apt install fritzing` (eldre versjon, gratis) | [x] 1.0.1 (apt) |
 | Wokwi (nettleser) | Simulere ESP32/Arduino før du kobler | wokwi.com | – |
 
 ## Python-pakker
@@ -133,3 +136,4 @@ Skriv her når noe er endret i oppsettet, med dato:
 - 2026-10-24: Installert python3-venv, pipx, esptool 5.6.0 (pipx) og VS Code-utvidelsene PlatformIO IDE, Python og Remote-SSH. Lagt til i `dialout`, fjernet brltty, lagt inn PlatformIO-udev-regler. PlatformIO-kjernen (`~/.platformio`) settes opp første gang VS Code åpnes med utvidelsen.
 - 2026-10-24: PlatformIO Core 6.2.0 satt opp av VS Code-utvidelsen. `pio` lenket inn i `~/.local/bin`. Logget inn på nytt, `dialout` er aktiv.
 - 2026-10-24: Lastet ned `espressif32` 8.0.0 med verktøykjeder. Testbygg for ESP32, ESP32-S3 og ESP32-C3 gikk feilfritt (4 min første gang).
+- 2026-10-24: Installert rpi-imager 1.8.5, Thonny 4.0.1, mosquitto-clients 2.0.18, Docker 29.1.3 + Compose 2.40.3, KiCad 7.0.11, Fritzing 1.0.1 (apt), Arduino IDE 2.3.10 (Flatpak) og mpremote 1.29.0 (pipx). Bruker lagt i `docker` (aktiv etter ny innlogging). Docker og MQTT testet OK.
