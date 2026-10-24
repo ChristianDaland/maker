@@ -3,6 +3,7 @@
 Kort dagbok over arbeid i verkstedet. Nyeste øverst.
 
 ## 2026-10-24
+- Raspberry Pi: planlagt `pi-sentral` (Pi 5, Wi-Fi). `~/.ssh/config` laget, handleliste og sjekkliste i `docs/01-raspberry-pi.md`. Venter på SD-kort.
 - Installert resten av verktøyene: rpi-imager, Thonny, mosquitto-clients, Docker, KiCad, Fritzing, Arduino IDE (Flatpak), mpremote. Docker + MQTT-rundtur testet OK.
 - ESP32-plattformen for PlatformIO lastet ned, testbygg for ESP32, S3 og C3 OK.
 - PlatformIO Core 6.2.0 kontrollert og `pio` lagt i PATH. `dialout` aktiv.

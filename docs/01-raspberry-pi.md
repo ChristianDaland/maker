@@ -4,7 +4,43 @@
 
 | Navn (hostname) | Modell | IP / adresse | Rolle | Merknader |
 |---|---|---|---|---|
-| | | | | |
+| `pi-sentral` | Raspberry Pi 5 | `pi-sentral.local` (Wi-Fi) | Sentral: MQTT, Node-RED, InfluxDB, Grafana (Docker) | Under oppsett – venter på SD-kort |
+
+## Oppsett av pi-sentral
+
+### Handleliste
+
+- [ ] **microSD-kort**, 32–64 GB, klasse A2 (f.eks. SanDisk Extreme eller Samsung PRO Endurance – sistnevnte tåler mye skriving, som passer en database)
+- [ ] **Strømforsyning**: offisiell Raspberry Pi 27 W USB-C (5 V / 5 A). Vanlige mobilladere gir underspenning og ustabil Pi.
+- [ ] **Kjøling**: Raspberry Pi Active Cooler eller kabinett med vifte. Pi 5 struper farten uten kjøling.
+- [ ] Kabinett (valgfritt, men beskytter mot kortslutning på skrivebordet)
+- [ ] Senere, valgfritt: M.2 HAT+ med NVMe-SSD – raskere og mer holdbart enn SD-kort for databaser
+
+### Valg i Raspberry Pi Imager
+
+| Innstilling | Verdi |
+|---|---|
+| Enhet | Raspberry Pi 5 |
+| Operativsystem | Raspberry Pi OS (other) → **Raspberry Pi OS Lite (64-bit)** |
+| Hostname | `pi-sentral` |
+| Brukernavn | `odd_christian` (samme som på PC-en, så holder det med `ssh pi-sentral`) |
+| Passord | Velg et eget passord (trengs for `sudo`) |
+| Wi-Fi | Samme nett som PC-en, land `NO` |
+| Tid og tastatur | `Europe/Oslo`, `no` |
+| SSH | På, **kun offentlig nøkkel**, lim inn innholdet i `~/.ssh/id_ed25519.pub` |
+
+### Sjekkliste
+
+- [x] SSH-nøkkel på PC-en (`~/.ssh/id_ed25519`)
+- [x] `~/.ssh/config` på PC-en med `Host pi-sentral`
+- [ ] Skaffe utstyr fra handlelisten
+- [ ] Skrive SD-kort med valgene over
+- [ ] Første oppstart og `ssh pi-sentral`
+- [ ] `sudo apt update && sudo apt full-upgrade -y`
+- [ ] Fast IP-adresse: reserver adressen for Pi-en i ruteren (DHCP-reservasjon), så den alltid får samme IP
+- [ ] Koble til med VS Code Remote-SSH
+- [ ] Installere Docker på Pi-en (forberedelse til `infrastruktur/`)
+- [ ] Valgfritt: Tailscale på Pi-en for tilgang utenfra (PC-en har allerede Tailscale)
 
 ## Klargjøre et nytt SD-kort (headless)
 
@@ -20,7 +56,7 @@ Headless betyr at Pi-en kjører uten skjerm og tastatur; alt gjøres over nettve
 3. Skriv kortet, sett det i Pi-en og start den. Etter et par minutter:
    ```bash
    ping pi-sentral.local
-   ssh bruker@pi-sentral.local
+   ssh bruker@pi-sentral.local     # eller bare: ssh pi-sentral, med oppsettet i ~/.ssh/config
    ```
    Fungerer ikke `.local`-navnet, finn IP-adressen i ruterens oversikt over tilkoblede enheter.
 
