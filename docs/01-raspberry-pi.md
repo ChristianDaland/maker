@@ -19,7 +19,7 @@
 - [ ] Kabinett (valgfritt, men beskytter mot kortslutning på skrivebordet)
 - [ ] Senere, valgfritt: M.2 HAT+ med NVMe-SSD – raskere og mer holdbart enn SD-kort for databaser
 
-### Valg i Raspberry Pi Imager
+### Valg (lag-sd-kort.sh gjør dette automatisk)
 
 | Innstilling | Verdi |
 |---|---|
@@ -36,8 +36,9 @@
 
 - [x] SSH-nøkkel på PC-en (`~/.ssh/id_ed25519`)
 - [x] `~/.ssh/config` på PC-en med `Host pi-sentral`
+- [x] Raspberry Pi OS Lite (trixie, 2026-10-06) lastet ned og kontrollert (`~/.cache/maker/raspios/`)
 - [ ] Skaffe utstyr fra handlelisten
-- [ ] Skrive SD-kort med valgene over
+- [ ] Skrive SD-kort: `verktoy/lag-sd-kort.sh pi-sentral /dev/mmcblk0`
 - [ ] Første oppstart og `ssh pi-sentral`
 - [ ] `ssh pi-sentral 'bash -s -- --docker --repo' < ~/maker/verktoy/pi-oppsett.sh` og omstart
 - [ ] Fast IP-adresse: reserver adressen for Pi-en i ruteren (DHCP-reservasjon), så den alltid får samme IP
@@ -49,19 +50,44 @@
 
 Headless betyr at Pi-en kjører uten skjerm og tastatur; alt gjøres over nettverket.
 
-1. Start Raspberry Pi Imager (`rpi-imager`) og velg modell, operativsystem (Raspberry Pi OS Lite, 64-bit, for headless bruk) og SD-kortet.
-2. Velg «Rediger innstillinger» før skriving og sett:
-   - hostname, f.eks. `pi-sentral` (se [konvensjoner](konvensjoner.md))
-   - brukernavn og passord
-   - Wi-Fi-navn, passord og land (NO)
-   - tidssone `Europe/Oslo` og tastatur `no`
-   - under «Tjenester»: aktiver SSH og velg «Tillat kun autentisering med offentlig nøkkel», og lim inn innholdet i `~/.ssh/id_ed25519.pub` (se under)
-3. Skriv kortet, sett det i Pi-en og start den. Etter et par minutter:
-   ```bash
-   ping pi-sentral.local
-   ssh bruker@pi-sentral.local     # eller bare: ssh pi-sentral, med oppsettet i ~/.ssh/config
-   ```
-   Fungerer ikke `.local`-navnet, finn IP-adressen i ruterens oversikt over tilkoblede enheter.
+### Med skriptet (anbefalt)
+
+[`verktoy/lag-sd-kort.sh`](../verktoy/lag-sd-kort.sh) lager et ferdig kort med én kommando:
+
+```bash
+cp ~/maker/verktoy/sd-kort.env.example ~/maker/verktoy/sd-kort.env   # første gang: fyll inn Wi-Fi
+~/maker/verktoy/lag-sd-kort.sh --vis-kort                            # finn kortet, f.eks. /dev/mmcblk0
+~/maker/verktoy/lag-sd-kort.sh pi-sentral /dev/mmcblk0
+```
+
+Skriptet:
+1. Laster ned Raspberry Pi OS Lite (64-bit, Debian 13 «trixie», utgaven fra 2026-10-06) til `~/.cache/maker/raspios/` og kontrollerer SHA256. Neste kort bruker den lagrede fila.
+2. Nekter å skrive til diskene i maskinen, til partisjoner, og til enheter under 8 GB eller over 512 GB. Ber deg skrive navnet på enheten før noe slettes.
+3. Skriver imaget (spør om sudo-passord).
+4. Legger cloud-init-oppsett på boot-partisjonen (`user-data`, `network-config`, `meta-data`), med samme innhold som Raspberry Pi Imager 2 lager:
+   - hostname, tidssone `Europe/Oslo`, norsk tastatur
+   - bruker (standard `odd_christian`) med passord du velger, og sudo uten passord
+   - SSH-nøkkelen `~/.ssh/id_ed25519.pub`, SSH på, bare nøkkelinnlogging
+   - Wi-Fi fra `verktoy/sd-kort.env` (gitignored), land `NO`, og kablet nett som reserve
+   - I2C og SPI på
+5. Legger Pi-en inn i `~/.ssh/config` hvis den ikke er der fra før.
+
+Testet 2026-10-25 mot en fil i stedet for et kort: nedlasting, SHA256, utpakking og cloud-init-filene (også Wi-Fi-navn og -passord med spesialtegn og æøå). Ikke testet med ekte kort og Pi ennå.
+
+Ny utgave av Raspberry Pi OS: oppdater `IMAGE_URL` og `IMAGE_SHA256` øverst i skriptet (fra raspberrypi.com/software/operating-systems).
+
+### Med Raspberry Pi Imager
+
+Fra og med Debian 13 «trixie» bruker Raspberry Pi OS **cloud-init** til førstegangsoppsettet. Imager 1.8.5 fra Ubuntu-pakkene er eldre enn denne endringen, og innstillingene den skriver (bruker, Wi-Fi, SSH) blir kanskje ikke brukt. Velger du Imager, bruk versjon 2.x fra [raspberrypi.com/software](https://www.raspberrypi.com/software/), eller skriv kortet med Imager uten innstillinger og kjør `lag-sd-kort.sh` etterpå.
+
+### Første oppstart
+
+```bash
+ping pi-sentral.local          # første oppstart tar 2–5 minutter
+ssh pi-sentral
+```
+
+Fungerer ikke `.local`-navnet, finn IP-adressen i ruterens oversikt over tilkoblede enheter.
 
 ## SSH-nøkler
 

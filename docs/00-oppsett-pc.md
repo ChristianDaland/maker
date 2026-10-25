@@ -104,7 +104,8 @@ ln -s ~/.platformio/penv/bin/platformio ~/.local/bin/platformio
 
 | Verktøy | Brukes til | Installasjon | Installert |
 |---|---|---|---|
-| Raspberry Pi Imager | Lage SD-kort med forhåndsinnstilt Wi-Fi, bruker og SSH | `sudo apt install rpi-imager` (eller AppImage fra raspberrypi.com) | [x] 1.8.5 (apt) |
+| `verktoy/lag-sd-kort.sh` | Lage ferdige SD-kort (Raspberry Pi OS + cloud-init) – anbefalt, se docs/01 | Følger med repoet | [x] |
+| Raspberry Pi Imager | Lage SD-kort med forhåndsinnstilt Wi-Fi, bruker og SSH (1.8.5 er for gammel for trixie sin cloud-init – bruk 2.x eller skriptet) | `sudo apt install rpi-imager` (eller AppImage fra raspberrypi.com) | [x] 1.8.5 (apt) |
 | OpenSSH-klient | `ssh`, `ssh-keygen`, `ssh-copy-id` | Følger med Mint | [x] |
 
 ## Elektronikk og design

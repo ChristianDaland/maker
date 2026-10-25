@@ -28,3 +28,6 @@ venv/
 # Nedlastede firmware-filer (lastes ned på nytt ved behov)
 verktoy/firmware/*.bin
 verktoy/firmware/*.uf2
+
+# Wi-Fi og innstillinger for SD-kort
+verktoy/sd-kort.env
