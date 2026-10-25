@@ -3,6 +3,7 @@
 Kort dagbok over arbeid i verkstedet. Nyeste øverst.
 
 ## 2026-10-25
+- KiCad oppgradert til 10.0.7 (PPA). Valgte 10 fremfor 9, siden 10 er nyeste stabile og vi ikke har gamle filer.
 - Har USB-adapter for NVMe: OS skrives rett til Pi 5-SSD-en fra PC-en (vei A).
 - Gikk gjennom råd fra en samtale med Claude på nett. Gjort:
   - Sjekket hele Git-historikken for hemmeligheter og nettverksdetaljer: rent.
