@@ -3,6 +3,7 @@
 Kort dagbok over arbeid i verkstedet. Nyeste øverst.
 
 ## 2026-10-25
+- **Feil rettet:** Mosquitto startet ikke etter omstart (`mosquitto_passwd -c` nekter å overskrive passordfila) – sletter nå fila først. Telegraf ga opp når Mosquitto ikke var oppe – har nå `startup_error_behavior = "retry"`. Testet med full `down`/`up` av stakken. Lærdom: test omstart, ikke bare første oppstart.
 - `verktoy/lag-sd-kort.sh`: lager SD-kort med Raspberry Pi OS Lite (trixie) og cloud-init-oppsett. Image lastet ned og SHA256-kontrollert. Testet mot fil. Oppdaget at Imager 1.8.5 er for gammel for trixie sin cloud-init.
 - Wokwi Simulator for VS Code installert. ESP32-malen kan simuleres (`env:wokwi`, `diagram.json` med CYD-pinner). Simulert ESP32 når MQTT på PC-en via `host.wokwi.internal`. Berøring kan ikke simuleres.
 

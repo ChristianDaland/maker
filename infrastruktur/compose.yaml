@@ -21,9 +21,11 @@ services:
     environment:
       MQTT_BRUKER: ${MQTT_BRUKER}
       MQTT_PASSORD: ${MQTT_PASSORD}
-    # Passordfila lages på nytt fra .env ved hver oppstart
+    # Passordfila lages på nytt fra .env ved hver oppstart (mosquitto_passwd -c
+    # nekter å overskrive en eksisterende fil, derfor rm -f først)
     command: >
-      sh -c 'mosquitto_passwd -c -b /mosquitto/data/passwd "$$MQTT_BRUKER" "$$MQTT_PASSORD" &&
+      sh -c 'rm -f /mosquitto/data/passwd &&
+             mosquitto_passwd -c -b /mosquitto/data/passwd "$$MQTT_BRUKER" "$$MQTT_PASSORD" &&
              chown mosquitto:mosquitto /mosquitto/data/passwd &&
              chmod 0700 /mosquitto/data/passwd &&
              exec mosquitto -c /mosquitto/config/mosquitto.conf'
