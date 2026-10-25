@@ -10,7 +10,7 @@ Hvilke verktøy vi bruker når vi jobber med ESP32, og til hva. Installasjonssta
 | Thonny | Flashe MicroPython, laste opp `.py`-filer og bruke REPL |
 | esptool (via pipx) | Flashe firmware, slette flash, lese chip-ID og feilsøke tilkobling |
 | `dmesg`, `lsusb` | Se om kortet blir funnet og hvilken USB-brikke det har (CP210x/CH340) |
-| Wokwi (nettleser) | Simulere ESP32 og koblinger før vi kobler opp på ekte |
+| Wokwi Simulator (VS Code) | Simulere ESP32 med skjerm, LED, lyssensor og MQTT mot PC-en, uten kort. Ferdig satt opp i malen (`diagram.json`, `wokwi.toml`, `env:wokwi`) |
 
 ## Vanlige biblioteker (PlatformIO)
 

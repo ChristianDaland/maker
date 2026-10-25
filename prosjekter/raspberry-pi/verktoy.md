@@ -18,7 +18,7 @@ Hvilke verktøy vi bruker når vi jobber med Raspberry Pi, og til hva. Installas
 | Raspberry Pi OS Lite (64-bit) | Operativsystem uten skrivebord, for headless bruk |
 | `raspi-config` | Slå på kamera, I2C, SPI, seriellport og endre innstillinger |
 | Python 3 + `venv` | Ett virtuelt miljø per prosjekt (`.venv/`) |
-| `gpiozero` / `lgpio` | Styre GPIO: LED, knapper, motordrivere, servoer |
+| `gpiozero` / `lgpio` | Styre GPIO: LED, knapper, motordrivere, servoer. Kan testes på PC-en uten Pi med `GPIOZERO_PIN_FACTORY=mock` (simulerte pinner) |
 | `picamera2` | Kameramodulen (installeres med apt, venv med `--system-site-packages`) |
 | `smbus2` / `spidev` | Sensorer over I2C og SPI |
 | `paho-mqtt` + `maker.mqtt` | Sende og ta imot MQTT-meldinger (`maker.mqtt` i `bibliotek/python` følger verkstedets konvensjoner) |

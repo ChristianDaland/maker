@@ -73,6 +73,7 @@ Installert 2026-10-24 med Ubuntus pakker, bruker lagt i `docker`-gruppen. Testet
 | PlatformIO IDE | `platformio.platformio-ide` | Utvikling og flashing av ESP32 og andre mikrokontrollere | [x] 3.3.4 |
 | Python | `ms-python.python` | Python-utvikling lokalt og på Pi | [x] 2026.10.0 |
 | Remote - SSH | `ms-vscode-remote.remote-ssh` | Redigere og kjøre kode direkte på Raspberry Pi | [x] 0.128.0 |
+| Wokwi Simulator | `wokwi.wokwi-vscode` | Simulere ESP32, Arduino og Pico (krever gratis 30-dagers lisens, se docs/02) | [x] 4.1.0 |
 | Markdown All in One | `yzhang.markdown-all-in-one` | Skrive og forhåndsvise dokumentasjonen (valgfri) | [x] 3.6.3 |
 
 Installer fra terminalen med `code --install-extension <ID>`. PlatformIO IDE trenger `python3-venv` for å lage sitt eget miljø i `~/.platformio`.
@@ -112,7 +113,9 @@ ln -s ~/.platformio/penv/bin/platformio ~/.local/bin/platformio
 |---|---|---|---|
 | KiCad | Koblingsskjema og egne kretskort | `sudo apt install kicad` (eller PPA `kicad/kicad-9.0-releases` for nyeste) | [x] 7.0.11 (apt, uten 3D-modeller) |
 | Fritzing | Enkle koblingsskisser | `sudo apt install fritzing` (eldre versjon, gratis) | [x] 1.0.1 (apt) |
-| Wokwi (nettleser) | Simulere ESP32/Arduino før du kobler | wokwi.com | – |
+| Wokwi | Simulere ESP32/Arduino/Pico | VS Code-utvidelsen (over) eller wokwi.com | [x] |
+| KiCad-simulering (ngspice) | Simulere analoge kretser (spenningsdelere, filtre, transistorer) i koblingsskjemaet | Følger med KiCad (`libngspice0`) | [x] |
+| Falstad | Rask, visuell kretssimulering i nettleseren | falstad.com/circuit | – |
 
 ## Python-pakker
 
@@ -141,3 +144,4 @@ Skriv her når noe er endret i oppsettet, med dato:
 - 2026-10-24: Lastet ned `espressif32` 8.0.0 med verktøykjeder. Testbygg for ESP32, ESP32-S3 og ESP32-C3 gikk feilfritt (4 min første gang).
 - 2026-10-24: Installert rpi-imager 1.8.5, Thonny 4.0.1, mosquitto-clients 2.0.18, Docker 29.1.3 + Compose 2.40.3, KiCad 7.0.11, Fritzing 1.0.1 (apt), Arduino IDE 2.3.10 (Flatpak) og mpremote 1.29.0 (pipx). Bruker lagt i `docker` (aktiv etter ny innlogging). Docker og MQTT testet OK.
 - 2026-10-24: Lagt til PlatformIO-plattformene `atmelavr` og `raspberrypi`, VS Code-utvidelsen Markdown All in One og MicroPython 1.29.0 for ESP32 i `verktoy/firmware/`.
+- 2026-10-25: Installert Wokwi Simulator 4.1.0 for VS Code. ESP32-malen har fått `diagram.json`, `wokwi.toml` og `env:wokwi` (bygger OK, simulering ikke testet – krever lisens på brukerens konto).

@@ -2,6 +2,9 @@
 
 Kort dagbok over arbeid i verkstedet. Nyeste øverst.
 
+## 2026-10-25
+- Wokwi Simulator for VS Code installert. ESP32-malen kan simuleres (`env:wokwi`, `diagram.json` med CYD-pinner). Simulert ESP32 når MQTT på PC-en via `host.wokwi.internal`. Berøring kan ikke simuleres.
+
 ## 2026-10-24
 - Node-RED sikret med innlogging, ferdig koblet til Mosquitto (fanen «Verksted»).
 - Python-mal for Pi/PC (`_pi-mal`) og `bibliotek/python/maker/mqtt.py`, testet mot infrastrukturen. `nytt-prosjekt.sh` støtter nå alle `_<mappe>-mal`.

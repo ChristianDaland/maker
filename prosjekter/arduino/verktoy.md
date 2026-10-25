@@ -7,7 +7,8 @@ Hvilke verktøy vi bruker når vi jobber med klassiske Arduino-kort (Uno, Nano, 
 | Arduino IDE 2 | Raske tester, eksempler og serieplotter |
 | VS Code + PlatformIO IDE | Større prosjekter, samme arbeidsflyt som for ESP32 (`platform = atmelavr`) |
 | `dmesg`, `lsusb` | Finne porten: originale Uno/Mega gir `/dev/ttyACM0`, Nano-kloner med CH340 gir `/dev/ttyUSB0` |
-| Wokwi (nettleser) | Simulere før vi kobler opp |
+| Wokwi Simulator (VS Code eller wokwi.com) | Simulere Uno/Nano/Mega med komponenter før vi kobler opp |
+| SimulIDE (valgfri) | Kretssimulator med AVR-prosessorer, kjører lokalt uten nett |
 
 ## Verdt å vite
 

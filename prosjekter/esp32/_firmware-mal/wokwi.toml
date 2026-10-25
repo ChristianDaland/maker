@@ -1,0 +1,7 @@
+# Wokwi-simulering i VS Code (utvidelsen «Wokwi Simulator»).
+# Bygg først:  pio run -e wokwi
+# Start:       F1 → «Wokwi: Start Simulator» (med diagram.json åpen)
+[wokwi]
+version = 1
+firmware = '.pio/build/wokwi/firmware.bin'
+elf = '.pio/build/wokwi/firmware.elf'

@@ -63,6 +63,7 @@ Rammeverket ble først laget for Windows (`C:\Maker`, PowerShell, winget, WSL, O
 - Node-RED krever innlogging (`infrastruktur/nodered/settings.js`), flyten «Verksted» er koblet til Mosquitto.
 - PlatformIO-plattformer: `espressif32`, `atmelavr`, `raspberrypi` (offisiell, uten Pico W Wi-Fi). MicroPython for ESP32 i `verktoy/firmware/` (gitignored).
 - `verktoy/pi-oppsett.sh`: oppsett av ny Pi over SSH (ikke testet på Pi ennå).
+- Wokwi Simulator (VS Code) installert. ESP32-malen har `diagram.json` (CYD-pinner, uten berøring), `wokwi.toml` og `env:wokwi` (Wi-Fi `Wokwi-GUEST`, MQTT `host.wokwi.internal`). Lisensen må brukeren hente selv (30 dager).
 - Maskinvare: 4 × CYD bestilt (`esp32-01`–`esp32-04`). Pi 5 (`pi-sentral`), Pi 4, Pi 3, Pi Zero i skuffen. Mangler SD-kort, strøm og kjøling til Pi 5.
 
 ## Status og plan

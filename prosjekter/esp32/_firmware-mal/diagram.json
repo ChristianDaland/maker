@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "author": "maker",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    { "type": "wokwi-ili9341", "id": "skjerm", "top": -120, "left": 220, "attrs": {} },
+    { "type": "wokwi-rgb-led", "id": "led", "top": 220, "left": 230, "attrs": { "common": "anode" } },
+    { "type": "wokwi-photoresistor-sensor", "id": "lys", "top": 300, "left": 200, "attrs": {} }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+
+    [ "skjerm:VCC", "esp:3V3", "red", [] ],
+    [ "skjerm:GND", "esp:GND.1", "black", [] ],
+    [ "skjerm:CS", "esp:15", "orange", [] ],
+    [ "skjerm:D/C", "esp:2", "purple", [] ],
+    [ "skjerm:MOSI", "esp:13", "blue", [] ],
+    [ "skjerm:SCK", "esp:14", "green", [] ],
+    [ "skjerm:MISO", "esp:12", "gray", [] ],
+    [ "skjerm:LED", "esp:21", "yellow", [] ],
+    [ "skjerm:RST", "esp:3V3", "red", [] ],
+
+    [ "led:COM", "esp:3V3", "red", [] ],
+    [ "led:R", "esp:4", "red", [] ],
+    [ "led:G", "esp:16", "green", [] ],
+    [ "led:B", "esp:17", "blue", [] ],
+
+    [ "lys:VCC", "esp:3V3", "red", [] ],
+    [ "lys:GND", "esp:GND.2", "black", [] ],
+    [ "lys:AO", "esp:34", "white", [] ]
+  ],
+  "dependencies": {}
+}

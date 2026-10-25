@@ -10,6 +10,7 @@ Hvilke verktøy vi bruker når vi jobber med Raspberry Pi Pico / Pico W / Pico 2
 | VS Code + Raspberry Pi Pico-utvidelsen | C/C++ med Pico SDK, når vi trenger fart eller PIO |
 | PlatformIO | Alternativ for Arduino-rammeverket på Pico |
 | `picotool` | Lese informasjon fra og flashe Pico fra terminalen |
+| Wokwi Simulator (VS Code eller wokwi.com) | Simulere Pico og Pico W, både MicroPython og Arduino |
 
 ## Verdt å vite
 

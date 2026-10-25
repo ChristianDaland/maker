@@ -14,6 +14,17 @@
 #include "config.h"
 #include "secrets.h"
 
+#ifdef WOKWI
+// I simulatoren: Wokwis åpne Wi-Fi, og MQTT-broker på PC-en via Wokwi-gatewayen.
+// MQTT-bruker og -passord hentes fortsatt fra secrets.h.
+#undef WIFI_SSID
+#undef WIFI_PASSORD
+#undef MQTT_VERT
+#define WIFI_SSID "Wokwi-GUEST"
+#define WIFI_PASSORD ""
+#define MQTT_VERT "host.wokwi.internal"
+#endif
+
 #ifdef MED_SKJERM
 #include <cyd.h>
 cyd::Skjerm skjerm;
