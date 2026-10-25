@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Lager et ferdig SD-kort med Raspberry Pi OS Lite (64-bit) for en Pi i verkstedet.
+# Lager et ferdig SD-kort (eller NVMe-SSD i USB-adapter) med Raspberry Pi OS Lite (64-bit)
+# for en Pi i verkstedet.
 #
 #   verktoy/lag-sd-kort.sh <hostname> <enhet>         # skriv til SD-kort, f.eks. /dev/mmcblk0
 #   verktoy/lag-sd-kort.sh <hostname> --fil <bilde>   # skriv til en fil (for testing)
@@ -78,7 +79,7 @@ if ! $til_fil; then
         feil "$mal har systempartisjoner montert – nekter å skrive til den"
     fi
     storrelse=$(lsblk -bdno SIZE "$mal")
-    (( storrelse <= 512 * 1024**3 )) || feil "$mal er større enn 512 GB – ser ikke ut som et SD-kort"
+    (( storrelse <= 4096 * 1024**3 )) || feil "$mal er større enn 4 TB – ser ikke ut som et SD-kort eller en Pi-SSD"
     (( storrelse >= 8 * 1024**3 )) || feil "$mal er mindre enn 8 GB – for lite"
 
     echo

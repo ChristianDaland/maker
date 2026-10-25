@@ -4,20 +4,23 @@
 
 | Navn (hostname) | Modell | IP / adresse | Rolle | Merknader |
 |---|---|---|---|---|
-| `pi-sentral` | Raspberry Pi 5 | `pi-sentral.local` (Wi-Fi) | Sentral: MQTT, Node-RED, InfluxDB, Grafana (Docker) | Under oppsett – venter på SD-kort |
-| – | Raspberry Pi 4 | | Ikke bestemt | I skuffen. Kandidat: `pi-kamera` eller `pi-robot` |
-| – | Raspberry Pi 3 / 3B+ | | Ikke bestemt | I skuffen |
-| – | Raspberry Pi Zero / Zero 2 W | | Ikke bestemt | I skuffen. Lite minne – best til enkle oppgaver |
+| `pi-sentral` | Raspberry Pi 5 med NVMe-HAT og SSD | `pi-sentral.local` (Wi-Fi) | Sentral: MQTT, Node-RED, InfluxDB, Grafana (Docker) | Under oppsett. Starter fra SSD |
+| `pi-test` (forslag) | Raspberry Pi 4, SD-kort | | Testmiljø for pi-sentral (prøve Docker-oppsettet), senere kamera eller lyd | I skuffen |
+| `pi-skjerm` (forslag) | Raspberry Pi 3 / 3B+, SD-kort | | Fast Grafana-skjerm i kioskmodus på veggen | I skuffen. `--lett` |
+| `pi-sensor-01` (forslag) | Raspberry Pi Zero / Zero 2 W, SD-kort | | Liten, strømgjerrig sensornode (I2C-sensorer → MQTT) | I skuffen. `--lett` |
+
+Rollene merket «forslag» er ikke bestemt. Pi-ene på SD-kort skal ikke ha databaser lokalt – de sender målinger over MQTT til `pi-sentral`.
 
 ## Oppsett av pi-sentral
 
 ### Handleliste
 
-- [ ] **microSD-kort**, 32–64 GB, klasse A2 (f.eks. SanDisk Extreme eller Samsung PRO Endurance – sistnevnte tåler mye skriving, som passer en database)
+- [x] **Lagring**: NVMe-HAT med SSD (finnes). Databasene skrives til SSD-en, ikke SD-kort.
+- [ ] **For å få OS på SSD-en**, ett av: en USB-adapter for NVMe (da skriver `lag-sd-kort.sh` rett til SSD-en fra PC-en), eller et midlertidig microSD-kort for første oppstart
+- [ ] **microSD til Pi 3/4/Zero**: 32 GB, gjerne «High Endurance» (tåler mer skriving)
 - [ ] **Strømforsyning**: offisiell Raspberry Pi 27 W USB-C (5 V / 5 A). Vanlige mobilladere gir underspenning og ustabil Pi.
 - [ ] **Kjøling**: Raspberry Pi Active Cooler eller kabinett med vifte. Pi 5 struper farten uten kjøling.
 - [ ] Kabinett (valgfritt, men beskytter mot kortslutning på skrivebordet)
-- [ ] Senere, valgfritt: M.2 HAT+ med NVMe-SSD – raskere og mer holdbart enn SD-kort for databaser
 
 ### Valg (lag-sd-kort.sh gjør dette automatisk)
 
@@ -32,6 +35,35 @@
 | Tid og tastatur | `Europe/Oslo`, `no` |
 | SSH | På, **kun offentlig nøkkel**, lim inn innholdet i `~/.ssh/id_ed25519.pub` |
 
+### Starte fra NVMe-SSD
+
+Pi 5 kan starte rett fra SSD-en. To veier:
+
+**A) Med USB-adapter for NVMe på PC-en (enklest):** ta SSD-en ut av HAT-en, sett den i adapteren, og kjør `lag-sd-kort.sh pi-sentral /dev/sdX` mot den. Sett SSD-en tilbake og start. Nyere Pi 5 starter fra NVMe uten endringer i bootloaderen. Gjør den ikke det, bruk vei B én gang.
+
+**B) Med midlertidig SD-kort:** skriv et SD-kort med `lag-sd-kort.sh`, start fra det, og kjør:
+
+```bash
+ssh pi-sentral 'bash -s -- --nvme' < ~/maker/verktoy/pi-oppsett.sh
+```
+
+`--nvme` oppdaterer bootloaderen, setter oppstartsrekkefølgen til NVMe → SD → USB (`BOOT_ORDER=0xf416`), og slår på PCIe (`dtparam=pciex1`, trengs for HAT-er som ikke er Raspberry Pis egne). Skriv deretter OS-et til SSD-en (f.eks. med `rpi-imager` på Pi-en, eller vei A), ta ut SD-kortet og start på nytt.
+
+Merk:
+- `dtparam=pciex1_gen=3` gir mer fart, men er ikke offisielt støttet og virker ikke med alle disker. Ikke slått på.
+- SSD-en trekker strøm – den offisielle 27 W-forsyningen er nødvendig.
+- Sjekk at Active Cooler ikke kolliderer med HAT-en (de fleste HAT-er som monteres oppå, passer).
+
+### Lette noder på SD-kort (Pi 3, Pi 4, Zero)
+
+SD-kort tåler dårlig mye skriving. For Pi-er som bare sender målinger:
+
+```bash
+ssh pi-skjerm 'bash -s -- --lett' < ~/maker/verktoy/pi-oppsett.sh
+```
+
+`--lett` legger systemloggen i minnet (`Storage=volatile`) og setter `noatime` på rotpartisjonen. Ingen databaser lokalt.
+
 ### Sjekkliste
 
 - [x] SSH-nøkkel på PC-en (`~/.ssh/id_ed25519`)
@@ -40,6 +72,7 @@
 - [ ] Skaffe utstyr fra handlelisten
 - [ ] Skrive SD-kort: `verktoy/lag-sd-kort.sh pi-sentral /dev/mmcblk0`
 - [ ] Første oppstart og `ssh pi-sentral`
+- [ ] OS på SSD-en (vei A eller B over)
 - [ ] `ssh pi-sentral 'bash -s -- --docker --repo' < ~/maker/verktoy/pi-oppsett.sh` og omstart
 - [ ] Fast IP-adresse: reserver adressen for Pi-en i ruteren (DHCP-reservasjon), så den alltid får samme IP
 - [ ] Koble til med VS Code Remote-SSH

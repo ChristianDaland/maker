@@ -40,6 +40,8 @@ Bare emner med nøyaktig fire nivåer lagres. `maker/stue/esp32-01/kommando/lys`
 | `.env` | Ekte passord – **gitignored**, lages med `./lag-env.sh` |
 | `mosquitto/mosquitto.conf` | Broker: krever innlogging, lagrer meldinger |
 | `nodered/settings.js` | Node-RED: innlogging og kryptering av lagrede passord |
+| `mqtt-navn.sh` | Annonserer `mqtt.local` på hjemmenettet |
+| `backup.sh` | Backup av databaser, flyter og `.env` |
 | `telegraf/telegraf.conf` | MQTT → InfluxDB |
 | `grafana/provisioning/` | Datakilde og dashboard-oppsett som lastes ved oppstart |
 | `grafana/dashboards/verksted.json` | Dashbordet «Verksted – oversikt» |
@@ -77,13 +79,32 @@ mosquitto_pub -h localhost -u "$MQTT_BRUKER" -P "$MQTT_PASSORD" -t maker/verkste
 - `NODERED_KRYPTERINGSNOKKEL` krypterer lagrede passord. Hvis den endres, må passordene i flytene legges inn på nytt.
 - Flytene lagres i Docker-volumet `maker_nodered-data`. Eksporter viktige flyter (Meny → Eksporter) og legg dem i prosjektets mappe.
 
+## mqtt.local
+
+`./mqtt-navn.sh installer` lager en systemd-brukertjeneste som annonserer navnet `mqtt.local` (mDNS) med maskinens IP-adresse, og oppdaterer det hvis IP-en endres. ESP32-ene og Python-programmene kobler til `mqtt.local`. Installert og testet på EliteBooken 2026-10-25.
+
+`./mqtt-navn.sh status` viser hva navnet peker på.
+
+## Backup
+
+`./backup.sh` tar backup av det som bare ligger i Docker-volumene: InfluxDB (`influx backup`), Node-RED-flyter, Grafana-databasen, Mosquittos lagrede meldinger og `.env`. Backupen havner i `~/maker-backup/ÅÅÅÅ-MM-DD_TTMM/` (utenfor repoet, kun lesbar for deg), og de 10 nyeste beholdes. Den inneholder passord – ikke legg den i Git.
+
+Gjenopprette InfluxDB:
+
+```bash
+docker compose cp ~/maker-backup/<dato>/influxdb influxdb:/tmp/restore
+docker compose exec influxdb influx restore /tmp/restore --full -t "$INFLUX_TOKEN"
+```
+
+Node-RED: kopier `flows.json` og `flows_cred.json` til `nodered:/data/` og start Node-RED på nytt (krever samme `NODERED_KRYPTERINGSNOKKEL`).
+
 ## Flytte til pi-sentral
 
 1. Sett opp Pi-en med `verktoy/pi-oppsett.sh --docker --repo` (se [docs/01-raspberry-pi.md](../docs/01-raspberry-pi.md)).
 2. Kopier `.env` fra PC-en, så ESP32-ene kan bruke de samme passordene:
    `scp ~/maker/infrastruktur/.env pi-sentral:maker/infrastruktur/.env`
 3. På Pi-en: `cd ~/maker/infrastruktur && docker compose up -d`
-4. Sett `MQTT_VERT` i ESP32-enes `secrets.h` til Pi-ens IP-adresse.
+4. Flytt navnet: `./mqtt-navn.sh avinstaller` på PC-en, og `./mqtt-navn.sh installer` på Pi-en. ESP32-ene finner den nye brokeren av seg selv.
 5. Stopp tjenestene på PC-en: `docker compose down`.
 
 Data fra testing på PC-en blir ikke med over (det er bare testdata).

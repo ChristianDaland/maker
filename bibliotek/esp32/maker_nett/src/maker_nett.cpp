@@ -1,5 +1,8 @@
 #include "maker_nett.h"
 
+#include <ArduinoOTA.h>
+#include <ESPmDNS.h>
+
 namespace maker {
 
 Nett::Nett(const NettConfig& cfg) : _cfg(cfg), _mqtt(_wifiKlient) {}
@@ -21,8 +24,24 @@ void Nett::begin() {
   });
 }
 
+void Nett::startNettjenester() {
+  _nettjenesterStartet = true;
+  MDNS.begin(_cfg.enhet);  // enheten svarer på <enhet>.local
+
+  _ota = _cfg.otaPassord && _cfg.otaPassord[0] != '\0';
+  if (_ota) {
+    ArduinoOTA.setHostname(_cfg.enhet);
+    ArduinoOTA.setPassword(_cfg.otaPassord);
+    ArduinoOTA.setMdnsEnabled(false);  // mDNS er allerede startet over
+    ArduinoOTA.begin();
+    MDNS.enableArduino(3232, true);
+  }
+}
+
 void Nett::loop() {
   if (!wifiTilkoblet()) return;  // WiFi kobler til på nytt av seg selv
+  if (!_nettjenesterStartet) startNettjenester();
+  if (_ota) ArduinoOTA.handle();
   if (!_mqtt.connected()) {
     unsigned long na = millis();
     if (_sisteForsok == 0 || na - _sisteForsok >= FORSOK_INTERVALL_MS) {
@@ -35,6 +54,16 @@ void Nett::loop() {
 }
 
 void Nett::kobleTilMqtt() {
+  // .local-navn (f.eks. mqtt.local) slås opp med mDNS – vanlig DNS kjenner dem ikke
+  String vert = _cfg.mqttVert;
+  if (vert.endsWith(".local")) {
+    IPAddress ip = MDNS.queryHost(vert.substring(0, vert.length() - 6).c_str(), 2000);
+    if (ip == IPAddress()) return;  // ikke funnet nå – prøver igjen om litt
+    if (ip != _mqttIp) {
+      _mqttIp = ip;
+      _mqtt.setServer(_mqttIp, _cfg.mqttPort);
+    }
+  }
   String status = emne("status");
   bool medBruker = _cfg.mqttBruker && _cfg.mqttBruker[0] != '\0';
   bool ok = _mqtt.connect(_cfg.enhet,

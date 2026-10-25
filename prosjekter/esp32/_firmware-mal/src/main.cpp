@@ -1,7 +1,8 @@
 // Startpunkt for et ESP32-prosjekt i verkstedet.
 //
 // Gjør dette fra start:
-// - kobler til Wi-Fi og MQTT (bibliotek/esp32/maker_nett)
+// - kobler til Wi-Fi og MQTT (bibliotek/esp32/maker_nett), finner mqtt.local selv
+// - kan oppdateres over Wi-Fi (OTA) når OTA_PASSORD er satt
 // - sender lysnivå og signalstyrke hvert MALEINTERVALL_MS til maker/<sted>/<enhet>/...
 // - viser status på skjermen og med RGB-LED (bare på CYD, env:cyd)
 // - sender berøringer som JSON til maker/<sted>/<enhet>/beroring
@@ -31,7 +32,7 @@ cyd::Skjerm skjerm;
 #endif
 
 maker::Nett nett({WIFI_SSID, WIFI_PASSORD, MQTT_VERT, MQTT_PORT,
-                  MQTT_BRUKER, MQTT_PASSORD, STED, ENHET});
+                  MQTT_BRUKER, MQTT_PASSORD, STED, ENHET, OTA_PASSORD});
 
 unsigned long sisteMaling = 0;
 

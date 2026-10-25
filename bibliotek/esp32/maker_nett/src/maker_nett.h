@@ -4,6 +4,9 @@
 // - Emner følger konvensjonen maker/<sted>/<enhet>/<navn>.
 // - Publiserer "online" på maker/<sted>/<enhet>/status ved tilkobling, og broker
 //   publiserer "offline" (Last Will) hvis enheten forsvinner. Begge er "retained".
+// - Annonserer enheten som <enhet>.local (mDNS), og slår opp .local-navn som
+//   «mqtt.local» selv (ESP32 gjør ikke det av seg selv).
+// - Oppdatering over Wi-Fi (ArduinoOTA) hvis otaPassord er satt.
 //
 // Bruk:
 //   maker::Nett nett({WIFI_SSID, WIFI_PASSORD, MQTT_VERT, MQTT_PORT,
@@ -15,6 +18,7 @@
 #include <Arduino.h>
 #include <WiFi.h>
 #include <PubSubClient.h>
+#include <IPAddress.h>
 #include <functional>
 
 namespace maker {
@@ -28,6 +32,7 @@ struct NettConfig {
   const char* mqttPassord;
   const char* sted;         // f.eks. "stue"
   const char* enhet;        // f.eks. "esp32-01" – brukes også som hostname og MQTT-klient-ID
+  const char* otaPassord = nullptr;  // tom/nullptr = OTA av
 };
 
 using MeldingsHandler = std::function<void(const String& emne, const String& innhold)>;
@@ -58,6 +63,7 @@ class Nett {
 
  private:
   void kobleTilMqtt();
+  void startNettjenester();
 
   NettConfig _cfg;
   WiFiClient _wifiKlient;
@@ -66,6 +72,9 @@ class Nett {
   String _abonnementer[8];
   uint8_t _antallAbonnementer = 0;
   unsigned long _sisteForsok = 0;
+  bool _nettjenesterStartet = false;
+  bool _ota = false;
+  IPAddress _mqttIp;
   static constexpr unsigned long FORSOK_INTERVALL_MS = 5000;
 };
 

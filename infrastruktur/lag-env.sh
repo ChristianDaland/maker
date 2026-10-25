@@ -17,6 +17,7 @@ sed -e "s|^MQTT_PASSORD=$|MQTT_PASSORD=$(tilfeldig 24)|" \
     -e "s|^INFLUX_TOKEN=$|INFLUX_TOKEN=$(tilfeldig 48)|" \
     -e "s|^GRAFANA_PASSORD=$|GRAFANA_PASSORD=$(tilfeldig 24)|" \
     -e "s|^NODERED_PASSORD=$|NODERED_PASSORD=$(tilfeldig 24)|" \
+    -e "s|^OTA_PASSORD=$|OTA_PASSORD=$(tilfeldig 24)|" \
     -e "s|^NODERED_KRYPTERINGSNOKKEL=$|NODERED_KRYPTERINGSNOKKEL=$(tilfeldig 48)|" \
     .env.example > .env
 chmod 600 .env

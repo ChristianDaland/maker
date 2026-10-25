@@ -8,17 +8,23 @@
 # Valg:
 #   --docker   installer Docker Engine + Compose (for pi-sentral og andre som skal kjøre tjenester)
 #   --repo     klon github.com/ChristianDaland/maker til ~/maker (f.eks. for infrastruktur/)
+#   --lett     lett node på SD-kort (Pi 3/4/Zero): logger i minnet, færre skrivinger (noatime)
+#   --nvme     Pi 5 med NVMe: oppdater bootloader og start fra NVMe før SD/USB
 #
-# Forutsetter Raspberry Pi OS (64-bit) satt opp med Raspberry Pi Imager,
+# Forutsetter Raspberry Pi OS (64-bit) satt opp med verktoy/lag-sd-kort.sh (eller Imager),
 # der brukeren har sudo uten passord (standard for første bruker).
 set -euo pipefail
 
 med_docker=false
 med_repo=false
+lett=false
+nvme=false
 for arg in "$@"; do
     case "$arg" in
         --docker) med_docker=true ;;
         --repo)   med_repo=true ;;
+        --lett)   lett=true ;;
+        --nvme)   nvme=true ;;
         *) echo "Ukjent valg: $arg" >&2; exit 1 ;;
     esac
 done
@@ -60,6 +66,41 @@ if $med_docker; then
     fi
     sudo usermod -aG docker "$USER"
     sudo systemctl enable --now docker
+fi
+
+if $lett; then
+    steg "Lett node: mindre skriving til SD-kortet"
+    # Systemloggen i minnet (forsvinner ved omstart, men sparer kortet)
+    sudo mkdir -p /etc/systemd/journald.conf.d
+    printf '[Journal]\nStorage=volatile\nRuntimeMaxUse=30M\n' | sudo tee /etc/systemd/journald.conf.d/90-maker-lett.conf >/dev/null
+    sudo systemctl restart systemd-journald
+    # noatime: ikke skriv «sist lest»-tid hver gang en fil leses
+    if ! grep -qE '\s/\s+\S+\s+\S*noatime' /etc/fstab; then
+        sudo sed -i -E '/\s\/\s/ s/(\s(ext4|btrfs)\s+)(\S+)/\1\3,noatime/' /etc/fstab
+    fi
+    grep -E '\s/\s' /etc/fstab
+fi
+
+if $nvme; then
+    steg "NVMe-oppstart (Pi 5)"
+    grep -q "Raspberry Pi 5" /proc/device-tree/model || { echo "--nvme gjelder bare Pi 5" >&2; exit 1; }
+    sudo rpi-eeprom-update -a || true
+    # BOOT_ORDER leses bakfra: 6 = NVMe, 1 = SD, 4 = USB, f = prøv igjen
+    tmp="$(mktemp)"
+    sudo rpi-eeprom-config > "$tmp"
+    if grep -q '^BOOT_ORDER=' "$tmp"; then
+        sed -i 's/^BOOT_ORDER=.*/BOOT_ORDER=0xf416/' "$tmp"
+    else
+        echo 'BOOT_ORDER=0xf416' >> "$tmp"
+    fi
+    # Nødvendig for en del NVMe-adaptere som ikke er Raspberry Pis egne
+    grep -q '^PCIE_PROBE=' "$tmp" || echo 'PCIE_PROBE=1' >> "$tmp"
+    sudo rpi-eeprom-config --apply "$tmp"
+    rm -f "$tmp"
+    if ! grep -q '^dtparam=pciex1' /boot/firmware/config.txt; then
+        echo 'dtparam=pciex1' | sudo tee -a /boot/firmware/config.txt >/dev/null
+    fi
+    echo "NVMe-disker funnet:"; lsblk -dno NAME,SIZE,MODEL | grep nvme || echo "  (ingen – sjekk HAT og kabel, start på nytt)"
 fi
 
 if $med_repo; then

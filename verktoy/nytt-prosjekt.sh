@@ -62,9 +62,46 @@ for undermal in "$rot/prosjekter/$plattform"/_*-mal; do
     cp -rL "$undermal/." "$mappe/$undermappe/"
 done
 
-# Lag ekte hemmelighetsfiler fra eksemplene, så prosjektet kan kjøres med en gang (gitignored)
+# Lag ekte hemmelighetsfiler fra eksemplene, så prosjektet kan kjøres med en gang (gitignored).
+# Verdier fylles inn fra de lokale passordfilene hvis de finnes.
+hent() {  # hent NØKKEL fil
+    [[ -r "$2" ]] && grep -m1 "^$1=" "$2" | cut -d= -f2- || true
+}
+declare -A verdi=(
+    [WIFI_SSID]="$(hent WIFI_SSID "$rot/verktoy/sd-kort.env")"
+    [WIFI_PASSORD]="$(hent WIFI_PASSORD "$rot/verktoy/sd-kort.env")"
+    [MQTT_BRUKER]="$(hent MQTT_BRUKER "$rot/infrastruktur/.env")"
+    [MQTT_PASSORD]="$(hent MQTT_PASSORD "$rot/infrastruktur/.env")"
+    [OTA_PASSORD]="$(hent OTA_PASSORD "$rot/infrastruktur/.env")"
+)
+c_streng() { local s="${1//\\/\\\\}"; printf '%s' "${s//\"/\\\"}"; }
+
 while IFS= read -r -d '' eks; do
-    cp --update=none "$eks" "${eks/.example/}"
+    ekte="${eks/.example/}"
+    [[ -e "$ekte" ]] && continue
+    cp "$eks" "$ekte"
+    for n in "${!verdi[@]}"; do
+        v="${verdi[$n]}"
+        [[ -n "$v" ]] || continue
+        if [[ "$ekte" == *.h ]]; then
+            # #define NAVN  ""  ->  #define NAVN  "verdi"
+            python3 - "$ekte" "$n" "$(c_streng "$v")" <<'PY'
+import re, sys
+p, navn, verdi = sys.argv[1:]
+s = open(p, encoding="utf-8").read()
+s = re.sub(rf'^(#define {navn}\s+)""', lambda m: m.group(1) + '"' + verdi + '"', s, flags=re.M)
+open(p, "w", encoding="utf-8").write(s)
+PY
+        else
+            python3 - "$ekte" "$n" "$v" <<'PY'
+import re, sys
+p, navn, verdi = sys.argv[1:]
+s = open(p, encoding="utf-8").read()
+s = re.sub(rf'^{navn}=$', lambda m: f"{navn}={verdi}", s, flags=re.M)
+open(p, "w", encoding="utf-8").write(s)
+PY
+        fi
+    done
 done < <(find "$mappe" \( -name 'secrets.example.*' -o -name '.env.example' \) -print0)
 
 find "$mappe" -name .gitkeep -delete

@@ -3,6 +3,13 @@
 Kort dagbok over arbeid i verkstedet. Nyeste øverst.
 
 ## 2026-10-25
+- Gikk gjennom råd fra en samtale med Claude på nett. Gjort:
+  - Sjekket hele Git-historikken for hemmeligheter og nettverksdetaljer: rent.
+  - `mqtt.local` i stedet for IP-adresse (Avahi-tjeneste `infrastruktur/mqtt-navn.sh`, mDNS-oppslag i `maker_nett`). Testet fra PC og Python-malen.
+  - OTA i ESP32-malen (`env:cyd-ota`). Bygger OK, ikke testet på kort.
+  - `nytt-prosjekt.sh` fyller inn passord automatisk.
+  - `infrastruktur/backup.sh`, testet.
+  - Pi 5 har NVMe-SSD: `pi-oppsett.sh --nvme`, og `--lett` for Pi på SD-kort. Foreslåtte roller for Pi 3/4/Zero.
 - **Feil rettet:** Mosquitto startet ikke etter omstart (`mosquitto_passwd -c` nekter å overskrive passordfila) – sletter nå fila først. Telegraf ga opp når Mosquitto ikke var oppe – har nå `startup_error_behavior = "retry"`. Testet med full `down`/`up` av stakken. Lærdom: test omstart, ikke bare første oppstart.
 - `verktoy/lag-sd-kort.sh`: lager SD-kort med Raspberry Pi OS Lite (trixie) og cloud-init-oppsett. Image lastet ned og SHA256-kontrollert. Testet mot fil. Oppdaget at Imager 1.8.5 er for gammel for trixie sin cloud-init.
 - Wokwi Simulator for VS Code installert. ESP32-malen kan simuleres (`env:wokwi`, `diagram.json` med CYD-pinner). Simulert ESP32 når MQTT på PC-en via `host.wokwi.internal`. Berøring kan ikke simuleres.
