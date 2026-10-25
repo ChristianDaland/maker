@@ -10,7 +10,7 @@ Oversikt over hva som finnes i skuffene. Oppdater når noe kjøpes eller brukes 
 | Datamaskin | Raspberry Pi 3 / 3B+ (SD-kort) | 1 | Skuff | | Forslag: `pi-skjerm` |
 | Datamaskin | Raspberry Pi Zero / Zero 2 W (SD-kort) | 1 | Skuff | | Forslag: `pi-sensor-01` |
 | Lagring | microSD 32 GB «High Endurance» | 0 | | | Må kjøpes til Pi 3/4/Zero (se docs/01) |
-| Lagring | USB-adapter for NVMe | 0 | | | Valgfri – gjør det enkelt å skrive OS til Pi 5-SSD-en fra PC-en |
+| Lagring | USB-adapter for NVMe | 1 | | | Brukes til å skrive OS til Pi 5-SSD-en fra PC-en |
 | Sensor | | | | | |
 | Motor | | | | | |
 | Motordriver | | | | | |

@@ -16,7 +16,7 @@ Rollene merket «forslag» er ikke bestemt. Pi-ene på SD-kort skal ikke ha data
 ### Handleliste
 
 - [x] **Lagring**: NVMe-HAT med SSD (finnes). Databasene skrives til SSD-en, ikke SD-kort.
-- [ ] **For å få OS på SSD-en**, ett av: en USB-adapter for NVMe (da skriver `lag-sd-kort.sh` rett til SSD-en fra PC-en), eller et midlertidig microSD-kort for første oppstart
+- [x] **USB-adapter for NVMe** (finnes) – `lag-sd-kort.sh` skriver OS-et rett til SSD-en fra PC-en (vei A under)
 - [ ] **microSD til Pi 3/4/Zero**: 32 GB, gjerne «High Endurance» (tåler mer skriving)
 - [ ] **Strømforsyning**: offisiell Raspberry Pi 27 W USB-C (5 V / 5 A). Vanlige mobilladere gir underspenning og ustabil Pi.
 - [ ] **Kjøling**: Raspberry Pi Active Cooler eller kabinett med vifte. Pi 5 struper farten uten kjøling.
@@ -72,7 +72,7 @@ ssh pi-skjerm 'bash -s -- --lett' < ~/maker/verktoy/pi-oppsett.sh
 - [ ] Skaffe utstyr fra handlelisten
 - [ ] Skrive SD-kort: `verktoy/lag-sd-kort.sh pi-sentral /dev/mmcblk0`
 - [ ] Første oppstart og `ssh pi-sentral`
-- [ ] OS på SSD-en (vei A eller B over)
+- [ ] OS på SSD-en med USB-adapteren: `lag-sd-kort.sh pi-sentral /dev/sdX` (vei A)
 - [ ] `ssh pi-sentral 'bash -s -- --docker --repo' < ~/maker/verktoy/pi-oppsett.sh` og omstart
 - [ ] Fast IP-adresse: reserver adressen for Pi-en i ruteren (DHCP-reservasjon), så den alltid får samme IP
 - [ ] Koble til med VS Code Remote-SSH

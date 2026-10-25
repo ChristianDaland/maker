@@ -3,6 +3,7 @@
 Kort dagbok over arbeid i verkstedet. Nyeste øverst.
 
 ## 2026-10-25
+- Har USB-adapter for NVMe: OS skrives rett til Pi 5-SSD-en fra PC-en (vei A).
 - Gikk gjennom råd fra en samtale med Claude på nett. Gjort:
   - Sjekket hele Git-historikken for hemmeligheter og nettverksdetaljer: rent.
   - `mqtt.local` i stedet for IP-adresse (Avahi-tjeneste `infrastruktur/mqtt-navn.sh`, mDNS-oppslag i `maker_nett`). Testet fra PC og Python-malen.
